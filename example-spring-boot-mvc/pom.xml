@@ -15,6 +15,7 @@
     <name>example-spring-boot-mvc</name>
     <modules>
         <module>example-spring-boot-mvc-serializers</module>
+        <module>example-spring-boot-mvc-converter</module>
     </modules>
 
 </project>
