@@ -33,7 +33,7 @@ public class CustomWebMvcConfigurer implements WebMvcConfigurer ,ErrorPageRegist
      */
     @Override
     public void registerErrorPages(ErrorPageRegistry registry) {
-        //registry.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND,"/public/500.html"));
+        // registry.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND,"/public/400.html"));
 
 
 
