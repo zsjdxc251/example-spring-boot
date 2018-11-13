@@ -15,12 +15,13 @@ public class CustomWebMvcConfigure implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-        //registry.addResourceHandler("/static/**").addResourceLocations("classpath:/META-INF/resources/");
-//                // resourceChain(false) 的作用后面会讲解
-//                .resourceChain(false)
-//                // 添加 VersionResourceResolver，且指定版本号
-//                .addResolver(new VersionResourceResolver()
-//                        .addFixedVersionStrategy("1.0.0", "/js/lib/**"));
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/META-INF/resources/")
+                // resourceChain(false) 的作用后面会讲解
+                .resourceChain(false)
+                //.addTransformer()
+                // 添加 VersionResourceResolver，且指定版本号
+                .addResolver(new VersionResourceResolver()
+                        .addFixedVersionStrategy("1.0.0", "/js/lib/**"));
 
     }
 }
