@@ -1,4 +1,4 @@
 function execute(){
- alert("js.lib resource")
+    alert("static")
     alter("jslib");
 }

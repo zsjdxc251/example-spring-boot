@@ -17,7 +17,6 @@ public class BootMvcResourceBootstrap {
 
         ApplicationContext applicationContext = SpringApplication.run(BootMvcResourceBootstrap.class,args);
 
-        ResourceProperties properties =applicationContext.getBean(ResourceProperties.class);
     }
 
 
