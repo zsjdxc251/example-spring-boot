@@ -1,4 +1,4 @@
-package com.lesson.boot.mvc.converter.controller;
+package com.lesson.boot.mvc.error.controller;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.http.ResponseEntity;
