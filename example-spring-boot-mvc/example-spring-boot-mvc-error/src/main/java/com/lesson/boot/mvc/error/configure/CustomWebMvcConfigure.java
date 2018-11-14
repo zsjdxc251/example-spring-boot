@@ -30,6 +30,7 @@ public class CustomWebMvcConfigure implements WebMvcConfigurer ,ErrorPageRegistr
     @Override
     public void registerErrorPages(ErrorPageRegistry registry) {
         registry.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND,"/public/404.html"));
+        registry.addErrorPages(new ErrorPage(HttpStatus.BAD_REQUEST,"/public/400.html"));
     }
 
 
@@ -57,4 +58,6 @@ public class CustomWebMvcConfigure implements WebMvcConfigurer ,ErrorPageRegistr
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**");
     }
+
+
 }

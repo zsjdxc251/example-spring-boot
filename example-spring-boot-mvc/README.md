@@ -179,6 +179,8 @@
 
 ## 静态资源
 
+[参考范文](https://blog.coding.net/blog/spring-static-resource-process)
+
 ### webjars
 
 **在`springboot`打包成jar包时是访问不到其`css` `js`资源的，需要`webjars`资源定义才能访问到**
@@ -198,4 +200,38 @@ spring.resources.staticLocations[0]=classpath:/static
 
 
 *放入到`webjars`路径下打包成 `jar` 包可以访问到否则 `404`*
+
+
+
+
+
+## 内容协商
+
+内容基于`org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties`配置
+
+* `spring.mvc.pathmatch.use-registered-suffix-pattern=true`
+
+  在`url`请求时`springboot` 默认禁用后缀模式匹配 意味着`/index/get.json` 匹配不到 `GetMapping("/index/get")`, 该配置打开后缀模式匹配 
+
+  `http://localhost:8080/index/get.json`  
+
+  `ResponseHeader` -> `Content-Type: application/json;charset=UTF-8`
+
+  `spring.mvc.contentnegotiation.favor-path-extension=true` 
+
+  着`index/get.html` 则不能访问
+
+* `spring.mvc.contentnegotiation.media-types.markdown=text/markdown`
+
+  请求地址为`http://localhost:8080/index/get.markdown` 添加媒体类型，可以通过后缀区分返回
+
+  `Content-Type`
+
+* `spring.mvc.contentnegotiation.favor-parameter=true`
+
+  `springBoot` 还提供 参数名称 默认参数名称为`format` ，请求可以通过`/index/get?format=json`
+
+  可以通过`spring.mvc.contentnegotiation.parameter-name=myParameter`修改参数名称定义
+
+  `/index/get?myParameter=json`
 

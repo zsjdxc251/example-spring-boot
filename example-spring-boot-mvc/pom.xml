@@ -18,6 +18,8 @@
         <module>example-spring-boot-mvc-converter</module>
         <module>example-spring-boot-mvc-error</module>
         <module>example-spring-boot-mvc-resource</module>
+        <module>example-spring-boot-mvc-content-negotiation</module>
+        <module>example-spring-boot-mvc-configure</module>
     </modules>
 
 </project>
