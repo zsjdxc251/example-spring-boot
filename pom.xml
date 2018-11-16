@@ -13,6 +13,8 @@
         <module>example-spring-boot-oauth2</module>
         <module>example-spring-boot-listener</module>
         <module>example-spring-boot-builder</module>
+        <module>example-spring-boot-session</module>
+        <module>example-spring-boot-security</module>
     </modules>
     <name>example-spring-boot</name>
 
