@@ -10,6 +10,9 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>example-spring-boot-mvc</module>
+        <module>example-spring-boot-oauth2</module>
+        <module>example-spring-boot-listener</module>
+        <module>example-spring-boot-builder</module>
     </modules>
     <name>example-spring-boot</name>
 

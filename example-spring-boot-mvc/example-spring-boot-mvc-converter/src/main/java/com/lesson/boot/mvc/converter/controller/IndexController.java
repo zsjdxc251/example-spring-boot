@@ -20,6 +20,7 @@ public class IndexController {
         if (user == null){
             throw new RuntimeException();
         }
+
         return ResponseEntity.ok(JSON.toJSONString(user));
     }
 }
