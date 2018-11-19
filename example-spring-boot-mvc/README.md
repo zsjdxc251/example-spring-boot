@@ -1,5 +1,24 @@
 # Spring boot MVC
 
+**在spring配置mvc的时候，如果没有配置 `HandlerMapping` ，`HandlerAdapter` spring  会取默认配置**
+
+`org.springframework.web.servlet.DispatcherServlet#initHandlerMappings`
+
+```java
+...
+if (this.handlerMappings == null) {
+			this.handlerMappings = getDefaultStrategies(context, HandlerMapping.class);
+			if (logger.isDebugEnabled()) {
+				logger.debug("No HandlerMappings found in servlet '" + getServletName() + "': using default");
+			}
+		}
+...
+```
+
+
+
+来源于 `DispatcherServlet.properties` 文件
+
 ## 异常处理
 
 * **自动装配**`ErrorMvcAutoConfiguration`
@@ -235,3 +254,116 @@ spring.resources.staticLocations[0]=classpath:/static
 
   `/index/get?myParameter=json`
 
+
+
+## 自动装配
+
+### Servlet SPI
+
+**`javax.servlet.ServletContainerInitializer`** 在`tomcat` 容器启动的时候会调用该接口实现
+
+#### Spring 扩展
+
+* `org.springframework.web.SpringServletContainerInitializer`
+
+  `Spring`封装简化处理 使用 `@HandlerTypes` 过滤指定`class`
+
+  * `org.springframework.web.WebApplicationInitializer`
+    * `AbstractContextLoaderInitializer`
+      * `AbstractDispatcherServletInitializer` 编程驱动
+        * `AbstractAnnotationConfigDispatcherServletInitializer` 注解驱动
+  * `org.springframework.boot.web.servlet.support.SpringBootServletInitializer`
+
+* `org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory.Initializer `
+
+  `Spring`封装简化处理 使用 `@HandlerTypes` 过滤指定`class`
+
+  * `org.springframework.boot.web.servlet.ServletContextInitializer`
+
+    * `ServletRegistrationBean`
+
+      * `DispatcherServletRegistrationBean` 来源 `DispatcherServletAutoConfiguration`
+
+        
+
+### Spring Boot 自动装配
+
+* `DispatcherServlet`  -> `DispatcherServletAutoConfiguration`
+* `EnableWebMvc` ->  `WebMvcAutoConfiguration`
+* `Servlet` 容器 -> ` ServletWebServerFactoryAutoConfiguration `
+
+
+
+### Spring Boot 嵌入式容器
+
+* `org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory`
+
+* `org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory`
+
+* `org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory`
+
+* `org.springframework.boot.web.embedded.netty.NettyReactiveWebServerFactory`
+
+* `org.springframework.boot.web.embedded.tomcat.TomcatReactiveWebServerFactory`
+
+* `org.springframework.boot.web.embedded.jetty.JettyReactiveWebServerFactory`
+
+* `org.springframework.boot.web.embedded.undertow.UndertowReactiveWebServerFactory`
+
+* 核心代码提取
+
+  ```java
+          TomcatServletWebServerFactory tomcatServletWebServerFactory =
+                  new TomcatServletWebServerFactory(8080);
+  
+  
+          ServerProperties serverProperties = new ServerProperties();
+          TomcatServletWebServerFactoryCustomizer customizer = new TomcatServletWebServerFactoryCustomizer(serverProperties);
+          customizer.customize(tomcatServletWebServerFactory);
+  
+          WebMvcProperties webMvcProperties = new WebMvcProperties();
+          DispatcherServlet dispatcherServlet = new DispatcherServlet();
+          dispatcherServlet.setDispatchOptionsRequest(
+                  webMvcProperties.isDispatchOptionsRequest());
+          dispatcherServlet.setDispatchTraceRequest(
+                  webMvcProperties.isDispatchTraceRequest());
+          dispatcherServlet.setThrowExceptionIfNoHandlerFound(
+                  webMvcProperties.isThrowExceptionIfNoHandlerFound());
+          ServletContextInitializer servletContextInitializer = new DispatcherServletRegistrationBean(dispatcherServlet,"/");
+          WebServer webServer = tomcatServletWebServerFactory.getWebServer(servletContextInitializer);
+  
+          webServer.start();
+  ```
+
+  
+
+* 依赖顺序
+
+  `org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration`
+
+  * `org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration`
+    * `org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration`
+      * `ServletWebServerFactoryConfiguration.EmbeddedTomcat`
+        * `TomcatServletWebServerFactory`
+      * `ServletWebServerFactoryConfiguration.EmbeddedJetty`
+        * `JettyServletWebServerFactory`
+      * `ServletWebServerFactoryConfiguration.EmbeddedUndertow`
+        * `UndertowServletWebServerFactory`
+
+* `TomcatServletWebServerFactoryCustomizer` 与 `TomcatServletWebServerFactory` 关系
+
+  通过`org.springframework.boot.web.server.WebServerFactoryCustomizerBeanPostProcessor` 前置初始化处理
+
+  ```java
+  ...
+  private void postProcessBeforeInitialization(WebServerFactory webServerFactory) {
+  		LambdaSafe
+  				.callbacks(WebServerFactoryCustomizer.class, getCustomizers(),
+  						webServerFactory)
+  				.withLogger(WebServerFactoryCustomizerBeanPostProcessor.class)
+  				.invoke((customizer) -> customizer.customize(webServerFactory));
+  	}
+  ...
+  ```
+
+  在 `ServletWebServerFactoryAutoConfiguration.BeanPostProcessorsRegistrar` 注册 `WebServerFactoryCustomizerBeanPostProcessor` ` 实体

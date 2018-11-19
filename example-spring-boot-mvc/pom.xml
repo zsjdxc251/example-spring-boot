@@ -20,6 +20,8 @@
         <module>example-spring-boot-mvc-resource</module>
         <module>example-spring-boot-mvc-content-negotiation</module>
         <module>example-spring-boot-mvc-configure</module>
+        <module>example-spring-boot-mvc-quickstart</module>
+        <module>example-spring-boot-mvc-automate</module>
     </modules>
 
 </project>
