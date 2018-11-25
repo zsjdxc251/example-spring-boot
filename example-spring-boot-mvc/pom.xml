@@ -22,6 +22,9 @@
         <module>example-spring-boot-mvc-configure</module>
         <module>example-spring-boot-mvc-quickstart</module>
         <module>example-spring-boot-mvc-automate</module>
+        <module>example-spring-boot-mvc-view</module>
+        <module>example-spring-boot-mvc-rest</module>
+        <module>example-spring-boot-mvc-servlet</module>
     </modules>
 
 </project>

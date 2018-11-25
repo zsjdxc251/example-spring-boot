@@ -254,6 +254,13 @@ spring.resources.staticLocations[0]=classpath:/static
 
   `/index/get?myParameter=json`
 
+### 视图内容调停
+
+* 调停策略
+  1. `org.springframework.web.accept.ParameterContentNegotiationStrategy`
+  2. `org.springframework.web.accept.HeaderContentNegotiationStrategy`
+  3. 
+
 
 
 ## 自动装配
@@ -284,7 +291,6 @@ spring.resources.staticLocations[0]=classpath:/static
 
       * `DispatcherServletRegistrationBean` 来源 `DispatcherServletAutoConfiguration`
 
-        
 
 ### Spring Boot 自动装配
 
@@ -335,8 +341,6 @@ spring.resources.staticLocations[0]=classpath:/static
           webServer.start();
   ```
 
-  
-
 * 依赖顺序
 
   `org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration`
@@ -367,3 +371,126 @@ spring.resources.staticLocations[0]=classpath:/static
   ```
 
   在 `ServletWebServerFactoryAutoConfiguration.BeanPostProcessorsRegistrar` 注册 `WebServerFactoryCustomizerBeanPostProcessor` ` 实体
+
+
+
+
+
+## Spring Boot Servlet 
+
+### 四种注册方式
+
+1. 使用 `@ServletComponentScan` 注解扫描方式
+
+   实现原理基于 `org.springframework.boot.web.servlet.ServletComponentRegisteringPostProcessor`
+
+   ```java
+   static {
+   		List<ServletComponentHandler> servletComponentHandlers = new ArrayList<>();
+   		servletComponentHandlers.add(new WebServletHandler());
+   		servletComponentHandlers.add(new WebFilterHandler());
+   		servletComponentHandlers.add(new WebListenerHandler());
+   		HANDLERS = Collections.unmodifiableList(servletComponentHandlers);
+   	}
+   ```
+
+2. `org.springframework.boot.web.servlet.ServletRegistrationBean`
+
+   实现原理依然是基于`org.springframework.boot.web.servlet.ServletContextInitializer`
+
+   在`ServletRegistrationBean` 实现里 `ServletContextInitializer` 接口
+
+3. `org.springframework.boot.web.servlet.ServletContextInitializer`
+
+   实现示例
+
+   ```java
+       @Bean
+       public ServletContextInitializer servletContextInitializer(){
+   
+           return servletContext -> {
+   
+               servletContext.addServlet("async2",new AsyncServlet());
+   
+           };
+       }
+   ```
+
+4. 直接`@Bean`
+
+   实现原理 是基于
+
+   `ServletContextInitializerBeans#ServletContextInitializerBeans`
+
+   ```java
+   ... 	
+   public ServletContextInitializerBeans(ListableBeanFactory beanFactory) {
+           ...
+   		addAdaptableBeans(beanFactory);
+           ...
+   }
+   	private void addAdaptableBeans(ListableBeanFactory beanFactory) {
+   		MultipartConfigElement multipartConfig = getMultipartConfig(beanFactory);
+   		addAsRegistrationBean(beanFactory, Servlet.class,
+   				new ServletRegistrationBeanAdapter(multipartConfig));
+   		addAsRegistrationBean(beanFactory, Filter.class,
+   				new FilterRegistrationBeanAdapter());
+   		for (Class<?> listenerType : ServletListenerRegistrationBean
+   				.getSupportedTypes()) {
+   			addAsRegistrationBean(beanFactory, EventListener.class,
+   					(Class<EventListener>) listenerType,
+   					new ServletListenerRegistrationBeanAdapter());
+   		}
+   	}
+   ```
+
+​       最后依然是把 该`Bean` 分装为 `ServletRegistrationBean` 且 `Filter` & `ServletListener` 同理
+
+* 实现原理 ：`org.springframework.boot.web.servlet.ServletContextInitializerBeans`  实现了 `java.util.AbstractCollection` 接口。
+
+  * `org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext`实现内容上下文，在`ServletWebServerApplicationContext#onRefresh` 的时候会刷新创建`webServer`
+
+    ```java
+    	private void createWebServer() {
+    		WebServer webServer = this.webServer;
+    		ServletContext servletContext = getServletContext();
+    		if (webServer == null && servletContext == null) {
+    			ServletWebServerFactory factory = getWebServerFactory();
+    			this.webServer = factory.getWebServer(getSelfInitializer());
+    		}
+    		else if (servletContext != null) {
+    			try {
+    				getSelfInitializer().onStartup(servletContext);
+    			}
+    			catch (ServletException ex) {
+    				throw new ApplicationContextException("Cannot initialize servlet context",
+    						ex);
+    			}
+    		}
+    		initPropertySources();
+    	}
+    ```
+
+    会初始化自己`ServletWebServerApplicationContext#getSelfInitializer`
+
+    ```java
+    	private void selfInitialize(ServletContext servletContext) throws ServletException {
+    		prepareWebApplicationContext(servletContext);
+    		ConfigurableListableBeanFactory beanFactory = getBeanFactory();
+    		ExistingWebApplicationScopes existingScopes = new ExistingWebApplicationScopes(
+    				beanFactory);
+    		WebApplicationContextUtils.registerWebApplicationScopes(beanFactory,
+    				getServletContext());
+    		existingScopes.restore();
+    		WebApplicationContextUtils.registerEnvironmentBeans(beanFactory,
+    				getServletContext());
+    		for (ServletContextInitializer beans : getServletContextInitializerBeans()) {
+    			beans.onStartup(servletContext);
+    		}
+    	}
+    ```
+
+    获取所有的`ServletContextInitializer` 实现调用 `onStartup`
+
+  * 在`SpringBoot`在启动的时候 `SpringApplication#createApplicationContext` 的时候如果是`org.springframework.boot.WebApplicationType#SERVLET` 就会选用 `AnnotationConfigServletWebServerApplicationContext` 上下文实例且继承了`org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext`类
+

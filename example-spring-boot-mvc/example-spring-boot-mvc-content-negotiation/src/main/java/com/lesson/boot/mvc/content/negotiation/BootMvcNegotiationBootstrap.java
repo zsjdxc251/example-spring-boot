@@ -1,10 +1,8 @@
 package com.lesson.boot.mvc.content.negotiation;
 
-import com.sun.glass.ui.Application;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 
 /**
@@ -18,7 +16,6 @@ public class BootMvcNegotiationBootstrap {
         ConfigurableApplicationContext applicationContext =
                 SpringApplication.run(BootMvcNegotiationBootstrap.class,args);
 
-        WebMvcProperties webMvcProperties = applicationContext.getBean(WebMvcProperties.class);
 
 
 
