@@ -14,4 +14,7 @@
 
     <name>example-spring-boot-security</name>
 
+    <modules>
+        <module>example-spring-boot-security-quickstart</module>
+    </modules>
 </project>

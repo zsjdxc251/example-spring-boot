@@ -494,3 +494,11 @@ spring.resources.staticLocations[0]=classpath:/static
 
   * 在`SpringBoot`在启动的时候 `SpringApplication#createApplicationContext` 的时候如果是`org.springframework.boot.WebApplicationType#SERVLET` 就会选用 `AnnotationConfigServletWebServerApplicationContext` 上下文实例且继承了`org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext`类
 
+
+
+## Spring Boot 异步非阻塞支持
+
+### Servlet 
+
+* `org.springframework.web.servlet.mvc.method.annotation.CallableMethodReturnValueHandle`
+* `org.springframework.web.servlet.mvc.method.annotation.DeferredResultMethodReturnValueHandler`
