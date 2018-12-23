@@ -15,6 +15,7 @@
         <module>example-spring-boot-builder</module>
         <module>example-spring-boot-session</module>
         <module>example-spring-boot-security</module>
+        <module>example-spring-boot-properties</module>
     </modules>
     <name>example-spring-boot</name>
 
@@ -79,6 +80,12 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>26.0-jre</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.4</version>
         </dependency>
     </dependencies>
 

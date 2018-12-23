@@ -1,0 +1,8 @@
+spring:
+  data2:
+    name: "数据"
+    item:
+      - username: name1
+        age : 12
+      - username: name2
+        age: 13
