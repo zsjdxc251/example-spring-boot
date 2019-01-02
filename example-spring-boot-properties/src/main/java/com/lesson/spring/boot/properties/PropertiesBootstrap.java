@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.config.ConfigFileApplicationListener;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.env.EnvironmentPostProcessor;
+import org.springframework.boot.env.YamlPropertySourceLoader;
+import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MutablePropertySources;
@@ -13,6 +15,33 @@ import org.springframework.core.env.MutablePropertySources;
 import java.util.Locale;
 
 /**
+ *   配置中心加载
+ *  {@code ConfigServicePropertySourceLocator}  {@code DiscoveryClientConfigServiceBootstrapConfiguration}
+ *
+ *
+ *
+ *
+ *   bootstrap.properties
+ *  {@code BootstrapApplicationListener}
+ *
+ *
+ *   application.properties
+ *  {@link ConfigFileApplicationListener}
+ *
+ *
+ *
+ *   yml 加载
+ *   {@link YamlPropertySourceLoader}
+ *
+ *
+ *   {@link ApplicationContextInitializer}
+ *   调用时机
+ *   SpringApplication#run(java.lang.String...)
+ *     SpringApplication#prepareContext(org.springframework.context.ConfigurableApplicationContext, org.springframework.core.env.ConfigurableEnvironment, org.springframework.boot.SpringApplicationRunListeners, org.springframework.boot.ApplicationArguments, org.springframework.boot.Banner)
+ *       SpringApplication#applyInitializers(org.springframework.context.ConfigurableApplicationContext)
+ *
+ *
+ *
  *
  * @see ConfigFileApplicationListener   可以扩展 自定义application.properties
  * @see EnvironmentPostProcessor
