@@ -3,13 +3,11 @@ package com.lesson.boot.mvc.content.negotiation.controller;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * @author zhengshijun
@@ -20,10 +18,10 @@ import java.util.Date;
 public class IndexController {
 
     @ResponseBody
-    @GetMapping(value = "/get",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> get(Date data){
+    @GetMapping(value = "/get")
+    public ResponseEntity<Map<String,String>> get(@RequestHeader Map<String,String> header){
 
-        return ResponseEntity.ok(Thread.currentThread().getName());
+        return ResponseEntity.ok(header);
     }
 
 
