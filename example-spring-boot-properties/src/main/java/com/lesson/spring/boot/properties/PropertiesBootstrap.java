@@ -2,6 +2,7 @@ package com.lesson.spring.boot.properties;
 
 import com.lesson.spring.boot.properties.model.MultidataProperties;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.StartupInfoLogger;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.config.ConfigFileApplicationListener;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -12,6 +13,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MutablePropertySources;
 
+import java.lang.management.ManagementFactory;
 import java.util.Locale;
 
 /**
@@ -41,7 +43,9 @@ import java.util.Locale;
  *       SpringApplication#applyInitializers(org.springframework.context.ConfigurableApplicationContext)
  *
  *
- *
+ *    获取系统 部分信息
+ *      > Starting PropertiesBootstrap on DESKTOP-6LN217U with PID 776 ...
+ *    {@link StartupInfoLogger#getStartupMessage()}
  *
  * @see ConfigFileApplicationListener   可以扩展 自定义application.properties
  * @see EnvironmentPostProcessor
@@ -56,25 +60,31 @@ public class PropertiesBootstrap {
     public static void main(String[] args){
 
 
-        Locale.setDefault(Locale.US);
-        ConfigurableApplicationContext configurableApplicationContext =
-                SpringApplication.run(PropertiesBootstrap.class,args);
+        String name = ManagementFactory.getRuntimeMXBean().getName();
 
 
-        ConfigurableEnvironment configurableEnvironment =
-                configurableApplicationContext.getEnvironment();
+        SpringApplication.run(PropertiesBootstrap.class,args);
 
 
-
-        MutablePropertySources sources = configurableEnvironment.getPropertySources();
-
-        sources.forEach(source->{
-            System.out.println("");
-            System.out.println(source.getName()+"-"+source.getSource());
-            System.out.println("");
-
-
-        });
+//        Locale.setDefault(Locale.US);
+//        ConfigurableApplicationContext configurableApplicationContext =
+//                SpringApplication.run(PropertiesBootstrap.class,args);
+//
+//
+//        ConfigurableEnvironment configurableEnvironment =
+//                configurableApplicationContext.getEnvironment();
+//
+//
+//
+//        MutablePropertySources sources = configurableEnvironment.getPropertySources();
+//
+//        sources.forEach(source->{
+//            System.out.println("");
+//            System.out.println(source.getName()+"-"+source.getSource());
+//            System.out.println("");
+//
+//
+//        });
 
 
 
