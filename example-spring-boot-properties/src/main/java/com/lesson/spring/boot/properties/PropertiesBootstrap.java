@@ -2,7 +2,6 @@ package com.lesson.spring.boot.properties;
 
 import com.lesson.spring.boot.properties.model.MultidataProperties;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.StartupInfoLogger;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.config.ConfigFileApplicationListener;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -45,7 +44,7 @@ import java.util.Locale;
  *
  *    获取系统 部分信息
  *      > Starting PropertiesBootstrap on DESKTOP-6LN217U with PID 776 ...
- *    {@link StartupInfoLogger#getStartupMessage()}
+ *    {@code StartupInfoLogger#getStartupMessage()}
  *
  * @see ConfigFileApplicationListener   可以扩展 自定义application.properties
  * @see EnvironmentPostProcessor
