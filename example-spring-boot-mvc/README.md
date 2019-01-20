@@ -291,6 +291,30 @@ spring.resources.staticLocations[0]=classpath:/static
 
       * `DispatcherServletRegistrationBean` 来源 `DispatcherServletAutoConfiguration`
 
+  >javax.servlet.ServletContainerInitializer 
+  >​    org.springframework.web.SpringServletContainerInitializer  
+  >​	   
+  >
+  >```java
+  >	   org.springframework.web.WebApplicationInitializer
+  >	        org.springframework.web.context.AbstractContextLoaderInitializer
+  >			     org.springframework.web.servlet.support.AbstractDispatcherServletInitializer
+  >				      org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer
+  >	   org.springframework.boot.web.servlet.support.SpringBootServletInitializer
+  >```
+  >
+  >
+  >​	
+  >```java
+  >org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory.Initializer 
+  >  	 
+  >       org.springframework.boot.web.servlet.ServletContextInitializer
+  >	   
+  >			 org.springframework.boot.web.servlet.ServletRegistrationBean
+  >			       (org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration)
+  >			       org.springframework.boot.autoconfigure.web.servlet.DispatcherServletRegistrationBean
+  >```
+
 
 ### Spring Boot 自动装配
 

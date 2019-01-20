@@ -65,7 +65,11 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
 
+                <configuration>
+                    <outputDirectory>D:/Temp</outputDirectory>
+                </configuration>
                 <executions>
+
                     <execution>
                         <goals>
                             <goal>repackage</goal>
