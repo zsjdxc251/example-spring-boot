@@ -58,15 +58,47 @@
         </dependency>
     </dependencies>
 
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <package.environment>dev</package.environment>
+                <jar.output.dir>D:/Temp</jar.output.dir>
+            </properties>
+        </profile>
+        <profile>
+            <id>pro</id>
+            <properties>
+                <package.environment>pro</package.environment>
+                <jar.output.dir>D:/Temp</jar.output.dir>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <package.environment>test</package.environment>
+                <jar.output.dir>D:/Temp</jar.output.dir>
+            </properties>
+        </profile>
+        <profile>
+            <id>sit</id>
+            <properties>
+                <package.environment>sit</package.environment>
+                <jar.output.dir>D:/Temp</jar.output.dir>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
-        <finalName>example-spring-boot-mvc</finalName>
+        <finalName>${project.name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
 
                 <configuration>
-                    <outputDirectory>D:/Temp</outputDirectory>
+                    <outputDirectory>${jar.output.dir}</outputDirectory>
                 </configuration>
                 <executions>
 
