@@ -19,3 +19,7 @@
 >Spring Boot 运行阶段
 >
 >​    事件监听
+
+## 基础组件
+* `CommandLineRunner`
+* `ApplicationRunner`
