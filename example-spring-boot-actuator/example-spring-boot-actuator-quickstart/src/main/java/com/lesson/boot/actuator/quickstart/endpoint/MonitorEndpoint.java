@@ -67,7 +67,7 @@ import org.springframework.stereotype.Component;
  *    {@link InfoContributor } 实现 {@link SimpleInfoContributor}
  *
  *    或者在prpperties 中配置 info:
- *    
+ *
  *
  *
  * @author zhengshijun
