@@ -1,0 +1,27 @@
+spring:
+  security:
+    user:
+      name: admin
+      password: 123456
+
+
+info:
+  management:
+    info:
+      defaults:
+        enabled: false
+    endpoints.web.exposure.include: "*"
+    endpoint:
+      shutdown:
+        enabled: true
+        sensitive: false
+
+management:
+  info:
+    defaults:
+      enabled: true
+  endpoints.web.exposure.include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+      sensitive: false
