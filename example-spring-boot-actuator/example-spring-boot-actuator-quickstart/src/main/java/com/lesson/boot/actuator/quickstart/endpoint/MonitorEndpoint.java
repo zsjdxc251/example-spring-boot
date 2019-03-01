@@ -71,7 +71,7 @@ import org.springframework.stereotype.Component;
  *
  *
  * @author zhengshijun
- * @version creatWebEndpointed on 2019/3/1.
+ * @version created on 2019/3/1.
  */
 @Component
 @Endpoint(id = "monitor")
