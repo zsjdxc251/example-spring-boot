@@ -41,7 +41,7 @@ import org.springframework.stereotype.Component;
  *
  *   {@link Selector} 参数
  *
- *ReactiveHealthIndicator
+ *
  *   {@link ServletEndpoint}
  *   {@link ControllerEndpoint}
  *   {@link RestControllerEndpoint}
