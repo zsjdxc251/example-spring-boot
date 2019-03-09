@@ -25,6 +25,7 @@
     <name>example-spring-boot-mvc-automate</name>
     <modules>
         <module>spring-boot-mvc</module>
+        <module>spring-boot-war</module>
     </modules>
 
 </project>
