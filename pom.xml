@@ -17,7 +17,8 @@
         <module>example-spring-boot-security</module>
         <module>example-spring-boot-properties</module>
         <module>example-spring-boot-actuator</module>
-    </modules>
+		<module>example-spring-boot-jmx</module>
+	</modules>
     <name>example-spring-boot</name>
 
 
