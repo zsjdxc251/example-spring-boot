@@ -18,6 +18,7 @@
         <module>example-spring-boot-properties</module>
         <module>example-spring-boot-actuator</module>
 		<module>example-spring-boot-jmx</module>
+		<module>example-spring-boot-webflux</module>
 	</modules>
     <name>example-spring-boot</name>
 
