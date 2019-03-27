@@ -3,6 +3,7 @@ package com.lesson.boot.webflux.quickstart;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.support.WebExchangeDataBinder;
+import org.springframework.web.server.ServerWebExchange;
 
 /**
  *
@@ -13,6 +14,7 @@ import org.springframework.web.bind.support.WebExchangeDataBinder;
  *
  *
  *  {@link WebExchangeDataBinder}
+ *  {@link ServerWebExchange#getFormData()}
  *
  * @author zhengshijun
  * @version created on 2019/3/27.
