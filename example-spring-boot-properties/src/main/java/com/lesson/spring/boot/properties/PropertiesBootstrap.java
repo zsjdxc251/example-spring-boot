@@ -1,6 +1,7 @@
 package com.lesson.spring.boot.properties;
 
 import com.lesson.spring.boot.properties.model.MultidataProperties;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.config.ConfigFileApplicationListener;
@@ -9,7 +10,11 @@ import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.boot.env.YamlPropertySourceLoader;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
 
 import java.lang.management.ManagementFactory;
@@ -51,10 +56,13 @@ import java.util.Locale;
  * @author zhengshijun
  * @version created on 2018/12/22.
  */
+
 @SpringBootApplication
 @EnableConfigurationProperties({MultidataProperties.class})
-public class PropertiesBootstrap {
+public class PropertiesBootstrap implements EnvironmentAware {
 
+
+    Environment environment;
 
     public static void main(String[] args){
 
@@ -91,4 +99,23 @@ public class PropertiesBootstrap {
 
 
     }
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
+
+    @Bean
+    public ApplicationRunner applicationRunner(){
+
+        return args -> {
+
+            String uri = environment.getProperty("spring.cloud.config.uri");
+            System.out.println(uri);
+
+
+        };
+    }
+
+
 }

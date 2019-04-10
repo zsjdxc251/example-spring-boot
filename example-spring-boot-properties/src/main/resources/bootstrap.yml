@@ -1,10 +1,9 @@
 
-
 spring:
   application:
     name: roses-system
   profiles:
-    active: dev
+    active: local
   cloud:
     config:
       profile: local
@@ -42,14 +41,3 @@ spring:
   cloud:
     config:
       uri: http://127.0.0.1:8001
-
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  endpoint:
-    health:
-      enabled: true
-      show-details: always
