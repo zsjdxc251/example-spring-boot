@@ -22,13 +22,13 @@ import java.util.Locale;
 
 /**
  *   配置中心加载
- *  {@code ConfigServicePropertySourceLocator}  {@code DiscoveryClientConfigServiceBootstrapConfiguration}
+ *  {@code org.springframework.cloud.config.client.ConfigServicePropertySourceLocator}  {@code org.springframework.cloud.config.client.DiscoveryClientConfigServiceBootstrapConfiguration}
  *
  *
  *
  *
  *   bootstrap.properties
- *  {@code BootstrapApplicationListener}
+ *  {@code org.springframework.cloud.bootstrap.BootstrapApplicationListener}
  *
  *
  *   application.properties

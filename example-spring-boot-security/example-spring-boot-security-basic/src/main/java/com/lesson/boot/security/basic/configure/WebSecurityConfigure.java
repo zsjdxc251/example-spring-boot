@@ -6,6 +6,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
+ *
+ *  {@link HttpSecurity#httpBasic()} 通过用户名:密码 BASE64散列之后 携带到请求头 authorization:Basic cm9vdDoxMjM0NTY=
+ *
+ *  使用加密方式：请求 authorization:Basic cm9vdDoxMjM0NTY=
  * @author zhengshijun
  * @version created on 2018/12/30.
  */
