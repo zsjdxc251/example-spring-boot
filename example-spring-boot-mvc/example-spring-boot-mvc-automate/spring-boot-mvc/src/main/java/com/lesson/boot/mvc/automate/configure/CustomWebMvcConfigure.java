@@ -37,7 +37,8 @@ public class CustomWebMvcConfigure  {
 
                 File file = new File(relativePath);
 
-                context.setDocBase(file.getAbsolutePath());
+                context.setDocBase("D:\\temp\\test.war");
+
 
 
             });
