@@ -1,0 +1,10 @@
+server:
+  port: 9632
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+application:
+  message: Hello Phil
