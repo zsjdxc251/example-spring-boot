@@ -2,11 +2,9 @@ package com.lesson.boot.mvc.automate.configure;
 
 
 import org.apache.catalina.WebResourceRoot;
-import org.apache.catalina.webresources.JarResourceSet;
 import org.apache.catalina.webresources.StandardRoot;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
-import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -24,27 +22,42 @@ import java.security.CodeSource;
  * @version created on 2018/11/22.
  */
 @Configuration
-public class CustomWebMvcConfigure  {
-
-    public CustomWebMvcConfigure(){
-
-        System.out.println("");
-    }
+public class CustomWebMvcConfigure {
 
 
+	@Bean
+	public WebServerFactoryCustomizer<TomcatServletWebServerFactory> demo() {
 
 
-    @Bean
-    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> demo(){
+		System.out.println("11");
+
+		return factory -> {
+
+			factory.addContextCustomizers(context -> {
 
 
-        System.out.println("11");
+				File file = getCodeSourceArchive(getClass().getProtectionDomain().getCodeSource());
+				System.out.println(file.getAbsolutePath());
+				if (file.isDirectory()) {
+					context.setDocBase(file.getAbsolutePath());
+				} else if (file.isFile()) {
+					context.setResources(new StandardRoot());
+					WebResourceRoot webResourceRoot = context.getResources();
 
-        return factory -> {
 
-            factory.addContextCustomizers(context -> {
+					try {
+						webResourceRoot
+								.createWebResourceSet(
+										WebResourceRoot.ResourceSetType.RESOURCE_JAR,
+										"/",
+										new URL("file:/"+file.getAbsolutePath()),
+										"/BOOT-INF/classes");
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					}
 
-                System.out.println(context.getDocBase());
+				}
+
 
 //                String relativePath = "example-spring-boot-mvc/example-spring-boot-mvc-automate/spring-boot-mvc/target/classes";
 //
@@ -52,71 +65,65 @@ public class CustomWebMvcConfigure  {
 //
 //                context.setDocBase(file.getAbsolutePath());
 
-                ClassPathResource classPathResource = new ClassPathResource("/templates/");
+				ClassPathResource classPathResource = new ClassPathResource("/templates/");
 
-                try {
-                    System.out.println(classPathResource.getURL().getProtocol());
-                    System.out.println(classPathResource.getURL().getPath());
+				try {
+					System.out.println(classPathResource.getURL().getProtocol());
+					System.out.println(classPathResource.getURL().getPath());
 
-                    System.out.println(getClass().getProtectionDomain().getCodeSource());
-                    System.out.println(getCodeSourceArchive(getClass().getProtectionDomain().getCodeSource()));
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                URL url =  this.getClass().getClassLoader().getResource("/templates/jsp/index.jsp");
-
-               // System.out.println(url.getProtocol());
-
-                //context.setDocBase("D:\\temp\\test.war");
+					System.out.println(getClass().getProtectionDomain().getCodeSource());
 
 
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 
-                context.setResources(new StandardRoot());
-                WebResourceRoot webResourceRoot = context.getResources();
+				URL url = this.getClass().getClassLoader().getResource("/templates/jsp/index.jsp");
 
+				// System.out.println(url.getProtocol());
 
-                try {
-                    webResourceRoot
-                            .createWebResourceSet(
-                                    WebResourceRoot.ResourceSetType.RESOURCE_JAR,
-                                    "/",
-                                    new URL("file:/D:\\workspace\\githome\\github\\example-spring-boot\\example-spring-boot-mvc\\example-spring-boot-mvc-automate\\spring-boot-mvc\\target\\spring-boot-mvc-1.0-SNAPSHOT.jar"),
-                                    "/BOOT-INF/classes");
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
+				//context.setDocBase("D:\\temp\\test.war");
 
 
-            });
+//
+//                try {
+//                    webResourceRoot
+//                            .createWebResourceSet(
+//                                    WebResourceRoot.ResourceSetType.RESOURCE_JAR,
+//                                    "/",
+//                                    new URL("file:/D:\\workspace\\githome\\github\\example-spring-boot\\example-spring-boot-mvc\\example-spring-boot-mvc-automate\\spring-boot-mvc\\target\\spring-boot-mvc-1.0-SNAPSHOT.jar"),
+//                                    "/BOOT-INF/classes");
+//                } catch (MalformedURLException e) {
+//                    e.printStackTrace();
+//                }
 
 
-        };
-    }
+			});
 
-    File getCodeSourceArchive(CodeSource codeSource) {
-        try {
-            URL location = (codeSource != null) ? codeSource.getLocation() : null;
-            if (location == null) {
-                return null;
-            }
-            String path;
-            URLConnection connection = location.openConnection();
-            if (connection instanceof JarURLConnection) {
-                path = ((JarURLConnection) connection).getJarFile().getName();
-            }
-            else {
-                path = location.toURI().getPath();
-            }
-            int index = path.indexOf("!/");
-            if (index != -1) {
-                path = path.substring(0, index);
-            }
-            return new File(path);
-        }
-        catch (Exception ex) {
-            return null;
-        }
-    }
+
+		};
+	}
+
+	File getCodeSourceArchive(CodeSource codeSource) {
+		try {
+			URL location = (codeSource != null) ? codeSource.getLocation() : null;
+			if (location == null) {
+				return null;
+			}
+			String path;
+			URLConnection connection = location.openConnection();
+			if (connection instanceof JarURLConnection) {
+				path = ((JarURLConnection) connection).getJarFile().getName();
+			} else {
+				path = location.toURI().getPath();
+			}
+			int index = path.indexOf("!/");
+			if (index != -1) {
+				path = path.substring(0, index);
+			}
+			return new File(path);
+		} catch (Exception ex) {
+			return null;
+		}
+	}
 }
