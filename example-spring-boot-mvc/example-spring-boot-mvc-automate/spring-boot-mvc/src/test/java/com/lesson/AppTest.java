@@ -22,6 +22,7 @@ public class AppTest
     public void shouldAnswerWithTrue() throws IOException {
 
 
+        System.out.println(getClass().getProtectionDomain().getCodeSource());
         // URL url = new URL("file:/D:/workspace/githome/github/example-spring-boot/example-spring-boot-mvc/example-spring-boot-mvc-automate/spring-boot-mvc/target/spring-boot-mvc-1.0-SNAPSHOT.jar!/BOOT-INF/classes!/templates/jsp/index.jsp");
 
 

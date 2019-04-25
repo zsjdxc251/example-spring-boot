@@ -22,4 +22,12 @@ public class IndexController {
         modelAndView.addObject("message",Thread.currentThread().getName());
         return modelAndView;
     }
+    @GetMapping("/home")
+    public ModelAndView home(ModelAndView modelAndView){
+
+        modelAndView.setViewName("home");
+
+        modelAndView.addObject("message",Thread.currentThread().getName());
+        return modelAndView;
+    }
 }

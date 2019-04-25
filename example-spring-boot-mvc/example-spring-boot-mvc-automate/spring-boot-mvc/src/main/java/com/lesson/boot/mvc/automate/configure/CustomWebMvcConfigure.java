@@ -1,6 +1,9 @@
 package com.lesson.boot.mvc.automate.configure;
 
 
+import org.apache.catalina.WebResourceRoot;
+import org.apache.catalina.webresources.JarResourceSet;
+import org.apache.catalina.webresources.StandardRoot;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
@@ -10,7 +13,11 @@ import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.JarURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.security.CodeSource;
 
 /**
  * @author zhengshijun
@@ -37,30 +44,79 @@ public class CustomWebMvcConfigure  {
 
             factory.addContextCustomizers(context -> {
 
+                System.out.println(context.getDocBase());
+
 //                String relativePath = "example-spring-boot-mvc/example-spring-boot-mvc-automate/spring-boot-mvc/target/classes";
 //
 //                File file = new File(relativePath);
 //
 //                context.setDocBase(file.getAbsolutePath());
 
-                ClassPathResource classPathResource = new ClassPathResource("/templates/jsp/index.jsp");
+                ClassPathResource classPathResource = new ClassPathResource("/templates/");
 
                 try {
                     System.out.println(classPathResource.getURL().getProtocol());
                     System.out.println(classPathResource.getURL().getPath());
+
+                    System.out.println(getClass().getProtectionDomain().getCodeSource());
+                    System.out.println(getCodeSourceArchive(getClass().getProtectionDomain().getCodeSource()));
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
                 URL url =  this.getClass().getClassLoader().getResource("/templates/jsp/index.jsp");
 
-                System.out.println(url.getProtocol());
+               // System.out.println(url.getProtocol());
 
+                //context.setDocBase("D:\\temp\\test.war");
+
+
+
+                context.setResources(new StandardRoot());
+                WebResourceRoot webResourceRoot = context.getResources();
+
+
+                try {
+                    webResourceRoot
+                            .createWebResourceSet(
+                                    WebResourceRoot.ResourceSetType.RESOURCE_JAR,
+                                    "/",
+                                    new URL("file:/D:\\workspace\\githome\\github\\example-spring-boot\\example-spring-boot-mvc\\example-spring-boot-mvc-automate\\spring-boot-mvc\\target\\spring-boot-mvc-1.0-SNAPSHOT.jar"),
+                                    "/BOOT-INF/classes");
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
 
 
             });
 
 
         };
+    }
+
+    File getCodeSourceArchive(CodeSource codeSource) {
+        try {
+            URL location = (codeSource != null) ? codeSource.getLocation() : null;
+            if (location == null) {
+                return null;
+            }
+            String path;
+            URLConnection connection = location.openConnection();
+            if (connection instanceof JarURLConnection) {
+                path = ((JarURLConnection) connection).getJarFile().getName();
+            }
+            else {
+                path = location.toURI().getPath();
+            }
+            int index = path.indexOf("!/");
+            if (index != -1) {
+                path = path.substring(0, index);
+            }
+            return new File(path);
+        }
+        catch (Exception ex) {
+            return null;
+        }
     }
 }
