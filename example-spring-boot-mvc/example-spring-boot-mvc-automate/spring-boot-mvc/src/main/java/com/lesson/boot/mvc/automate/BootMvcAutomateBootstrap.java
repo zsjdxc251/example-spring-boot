@@ -1,5 +1,6 @@
 package com.lesson.boot.mvc.automate;
 
+import org.apache.catalina.webresources.AbstractArchiveResourceSet;
 import org.apache.catalina.webresources.Cache;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,6 +12,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * {@code Cache#getResource(java.lang.String, boolean)}
  *
  * {@code org.apache.catalina.webresources.CachedResource#validateResource(boolean)}
+ *
+ *  // 组装jar
+ * {@link AbstractArchiveResourceSet#getResource(java.lang.String)}
  *
  * {@code org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory#prepareContext(org.apache.catalina.Host, org.springframework.boot.web.servlet.ServletContextInitializer[])}
  *
