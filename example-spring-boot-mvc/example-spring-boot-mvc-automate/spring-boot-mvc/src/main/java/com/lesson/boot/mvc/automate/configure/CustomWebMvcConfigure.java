@@ -3,8 +3,10 @@ package com.lesson.boot.mvc.automate.configure;
 
 import org.apache.catalina.WebResourceRoot;
 import org.apache.catalina.webresources.StandardRoot;
+import org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.server.WebServerFactoryCustomizerBeanPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -25,14 +27,21 @@ import java.security.CodeSource;
 public class CustomWebMvcConfigure {
 
 
+	/**
+	 * init
+	 *
 
-
+	 * @see  ServletWebServerFactoryAutoConfiguration
+	 * @see  WebServerFactoryCustomizerBeanPostProcessor#postProcessBeforeInitialization(java.lang.Object, java.lang.String)
+	 *       {@code org.springframework.boot.web.server.WebServerFactoryCustomizerBeanPostProcessor#postProcessBeforeInitialization(org.springframework.boot.web.server.WebServerFactory)}
+	 * <p>
+	 * {@code ServletWebServerFactoryConfiguration.EmbeddedTomcat}
+	 */
 	@Bean
-	public WebServerFactoryCustomizer<TomcatServletWebServerFactory> test(){
+	public WebServerFactoryCustomizer<TomcatServletWebServerFactory> test() {
 
 
 		return factory -> {
-
 
 
 			CodeSource codeSource = getClass().getProtectionDomain().getCodeSource();
@@ -40,15 +49,13 @@ public class CustomWebMvcConfigure {
 
 			File file = getCodeSourceArchive(codeSource);
 
-			if (file.isDirectory()){
+			if (file.isDirectory()) {
 				factory.setDocumentRoot(file);
 			}
 		};
 
 
-
 	}
-
 
 
 	//@Bean
@@ -76,7 +83,7 @@ public class CustomWebMvcConfigure {
 								.createWebResourceSet(
 										WebResourceRoot.ResourceSetType.RESOURCE_JAR,
 										"/",
-										new URL("file:/"+file.getAbsolutePath()),
+										new URL("file:/" + file.getAbsolutePath()),
 										"/BOOT-INF/classes");
 					} catch (MalformedURLException e) {
 						e.printStackTrace();
