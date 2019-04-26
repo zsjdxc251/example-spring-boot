@@ -25,7 +25,33 @@ import java.security.CodeSource;
 public class CustomWebMvcConfigure {
 
 
+
+
 	@Bean
+	public WebServerFactoryCustomizer<TomcatServletWebServerFactory> test(){
+
+
+		return factory -> {
+
+
+
+			CodeSource codeSource = getClass().getProtectionDomain().getCodeSource();
+
+
+			File file = getCodeSourceArchive(codeSource);
+
+			if (file.isDirectory()){
+				factory.setDocumentRoot(file);
+			}
+		};
+
+
+
+	}
+
+
+
+	//@Bean
 	public WebServerFactoryCustomizer<TomcatServletWebServerFactory> demo() {
 
 

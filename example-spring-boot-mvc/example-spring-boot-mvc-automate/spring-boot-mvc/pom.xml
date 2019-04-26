@@ -13,7 +13,7 @@
     <artifactId>spring-boot-mvc</artifactId>
 
     <name>spring-boot-mvc</name>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
 
 
