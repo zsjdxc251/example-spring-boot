@@ -1,0 +1,48 @@
+spring:
+  profiles:
+    active: dev
+  output:
+    ansi:
+      enabled: ALWAYS
+
+## mvn clean compile -DskipTests -Dlogging.path=2
+server:
+  port: 9999 # @server.port@
+  tomcat:
+    basedir: D:/tmp
+    accesslog:
+      enabled: true
+      pattern: '%t %a "%r" %s (%D ms)'
+
+logging:
+  path: D:/tmp/
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+
+
+
+
+---
+spring:
+  profiles: prod
+app:
+  system:
+    sessionTimeout: 2d
+    address: 127.0.0.2
+---
+spring:
+  profiles: dev
+app:
+  system:
+    sessionTimeout: 1d
+    address: 127.0.0.1
