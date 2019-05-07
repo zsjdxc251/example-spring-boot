@@ -1,4 +1,16 @@
 spring:
+  mail:
+    host: smtp.126.com
+    port: 25
+    username: xxxxx
+    password: xxxxxx
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
   profiles:
     active: dev
   output:
@@ -28,6 +40,8 @@ management:
     health:
       enabled: true
       show-details: always
+
+
 
 
 
