@@ -15,6 +15,7 @@
 	<name>example-spring-boot-docs</name>
 	<modules>
 		<module>example-spring-boot-docs-quickstart</module>
+		<module>example-spring-boot-docs-jooq</module>
 	</modules>
 
 </project>
