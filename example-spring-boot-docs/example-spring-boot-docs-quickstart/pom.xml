@@ -126,12 +126,22 @@
 					<mainClass>com.lesson.boot.docs.quickstart.DocsQuickstartBootstrap</mainClass>
 					<!--<classifier>exec</classifier>-->
 					<!--<skip>true</skip>-->
-					<includes>
-						<include>
-							<groupId>com.lesson</groupId>
-							<artifactId>example-spring-boot-docs-quickstart</artifactId>
-						</include>
-					</includes>
+					<!--<includes>-->
+						<!--<include>-->
+							<!--<groupId>com.lesson</groupId>-->
+							<!--<artifactId>example-spring-boot-docs-quickstart</artifactId>-->
+						<!--</include>-->
+					<!--</includes>-->
+				</configuration>
+			</plugin>
+
+
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.8</version>
+				<configuration>
+					<repository>myorg/${project.artifactId}</repository>
 				</configuration>
 			</plugin>
 
