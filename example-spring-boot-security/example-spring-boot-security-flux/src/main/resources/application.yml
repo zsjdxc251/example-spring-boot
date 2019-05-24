@@ -1,0 +1,9 @@
+
+
+spring:
+  application:
+    name: spring-flux-security
+
+
+server:
+  port: 9520
