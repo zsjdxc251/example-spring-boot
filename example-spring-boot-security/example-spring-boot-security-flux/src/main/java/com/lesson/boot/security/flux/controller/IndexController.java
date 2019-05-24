@@ -15,9 +15,9 @@ import java.util.Map;
 public class IndexController {
 
 	@GetMapping("/abc/1")
-	public ResponseEntity<String> abc(){
+	public ResponseEntity<Map<String,String>> abc(@RequestHeader Map<String,String> header){
 
-		return ResponseEntity.ok(Thread.currentThread().getName());
+		return ResponseEntity.ok(header);
 	}
 
 
