@@ -25,6 +25,7 @@
         <module>example-spring-boot-mvc-view</module>
         <module>example-spring-boot-mvc-rest</module>
         <module>example-spring-boot-mvc-servlet</module>
-    </modules>
+		<module>example-spring-boot-mvc-encrypt</module>
+	</modules>
 
 </project>
