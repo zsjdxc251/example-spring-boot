@@ -1,6 +1,8 @@
 package com.lesson.boot.docs.quickstart;
 
 import com.lesson.boot.docs.quickstart.properties.AppSystemProperties;
+import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
+import org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties;
@@ -16,12 +18,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.core.serializer.Deserializer;
 import org.springframework.core.serializer.Serializer;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * {@link Runtime#addShutdownHook(java.lang.Thread)}
@@ -49,6 +54,20 @@ import org.springframework.test.annotation.DirtiesContext;
  * {@link MailProperties}
  *
  * <a href='https://docs.spring.io/spring-boot/docs/2.0.7.RELEASE/reference/htmlsingle/#common-application-properties'/>
+ *
+ *
+ * {@link AbstractApplicationContext#refresh()}
+ *
+ * {@link AbstractApplicationContext#prepareBeanFactory(org.springframework.beans.factory.config.ConfigurableListableBeanFactory)}
+ *
+ * {@link AbstractAutowireCapableBeanFactory#invokeAwareMethods(java.lang.String, java.lang.Object)}
+ *
+ * {@link InstantiationAwareBeanPostProcessor#postProcessPropertyValues(org.springframework.beans.PropertyValues, java.beans.PropertyDescriptor[], java.lang.Object, java.lang.String)}
+ *
+ *
+ *  {@link Transactional}
+ *
+ *  {@link TransactionStatus}
  *
  * @author zhengshijun
  * @version created on 2019/5/6.
