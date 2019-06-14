@@ -1,14 +1,8 @@
-package com.lesson.boot.statemachine.zookeeper;
+package com.lesson.boot.shell;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-
-import javax.validation.constraints.Size;
-import java.lang.annotation.ElementType;
-import java.util.Arrays;
-import java.util.Locale;
 
 /**
  * @author zhengshijun
@@ -17,6 +11,13 @@ import java.util.Locale;
 @ShellComponent()
 public class TranslationCommands {
 
+
+	/**
+	 *   sum 1 2
+	 * @param a
+	 * @param b
+	 * @return
+	 */
 	@ShellMethod(value = "Add two integers together.",key = "sum")
 	public int add(int a, int b) {
 		return a + b;

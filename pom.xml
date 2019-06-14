@@ -21,6 +21,7 @@
 		<module>example-spring-boot-webflux</module>
 		<module>example-spring-boot-docs</module>
 		<module>example-spring-boot-statemachine</module>
+		<module>example-spring-boot-shell</module>
 	</modules>
     <name>example-spring-boot</name>
 

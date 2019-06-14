@@ -3,6 +3,8 @@ package com.lesson.boot.statemachine.zookeeper.configure;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.statemachine.config.StateMachineConfigurerAdapter;
 import org.springframework.statemachine.config.builders.StateMachineConfigurationConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer;
@@ -18,6 +20,7 @@ import org.springframework.statemachine.zookeeper.ZookeeperStateMachineEnsemble;
  * @version created on 2019/6/12.
  */
 
+@Configuration
 public class StateMachineConfigure extends StateMachineConfigurerAdapter<String, String> {
 
 	@Override
@@ -57,11 +60,13 @@ public class StateMachineConfigure extends StateMachineConfigurerAdapter<String,
 	}
 
 
+	@Bean
 	public StateMachineEnsemble<String, String> stateMachineEnsemble() throws Exception {
 		return new ZookeeperStateMachineEnsemble<>(curatorClient(), "/foo");
 	}
 
 
+	@Bean
 	public CuratorFramework curatorClient() throws Exception {
 		CuratorFramework client = CuratorFrameworkFactory.builder().defaultData(new byte[0])
 				.retryPolicy(new ExponentialBackoffRetry(1000, 3))
@@ -71,6 +76,7 @@ public class StateMachineConfigure extends StateMachineConfigurerAdapter<String,
 	}
 
 
+	@Bean
 	public StateMachineListener<String, String> listener() {
 		return new StateMachineListenerAdapter<String, String>() {
 			@Override
