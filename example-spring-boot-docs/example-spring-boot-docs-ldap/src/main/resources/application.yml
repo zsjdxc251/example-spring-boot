@@ -1,0 +1,5 @@
+spring:
+  ldap:
+    embedded:
+      ldif: ldap-server.ldif
+      base:
