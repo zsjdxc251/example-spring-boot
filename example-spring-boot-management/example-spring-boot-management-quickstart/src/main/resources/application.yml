@@ -1,0 +1,16 @@
+logging:
+  level:
+    root: INFO
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+server:
+  port: 8521
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  server:
+    port: 9630
