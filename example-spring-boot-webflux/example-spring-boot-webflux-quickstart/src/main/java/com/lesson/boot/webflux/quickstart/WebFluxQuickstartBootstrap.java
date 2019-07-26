@@ -13,6 +13,33 @@ import org.springframework.web.server.ServerWebExchange;
  *  {@code org.springframework.web.reactive.result.method.InvocableHandlerMethod#resolveArguments(org.springframework.web.server.ServerWebExchange, org.springframework.web.reactive.BindingContext, java.lang.Object...)}
  *
  *
+ *
+ *
+ *
+ *
+ *
+ *    GlobalFilter & WebFilter 处理流程
+ *
+ *    org.springframework.cloud.gateway.handler.FilteringWebHandler
+ *
+ * org.springframework.web.server.handler.FilteringWebHandler#handle
+ *
+ * org.springframework.web.server.WebHandler
+ *
+ * org.springframework.web.reactive.DispatcherHandler#handle
+ *
+ *
+ * org.springframework.http.server.reactive.ReactorHttpHandlerAdapter#apply
+ *
+ *
+ * org.springframework.boot.web.reactive.context.ReactiveWebServerApplicationContext.ServerManager#handle
+ *
+ *
+ * org.springframework.boot.web.reactive.context.ReactiveWebServerApplicationContext.ServerManager#start
+ *
+ *
+ *
+ *
  *  {@link WebExchangeDataBinder}
  *  {@link ServerWebExchange#getFormData()}
  *
