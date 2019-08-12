@@ -35,7 +35,7 @@
                 <configuration>
                     <imageName>${project.artifactId}:${project.version}</imageName>
                     <registryUrl>registry.cn-shenzhen.aliyuncs.com/zsjdxc251</registryUrl>
-                  
+
                     <baseImage>java</baseImage>
                     <retryPushCount>1</retryPushCount>
 

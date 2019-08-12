@@ -23,7 +23,8 @@
 		<module>example-spring-boot-statemachine</module>
 		<module>example-spring-boot-shell</module>
 		<module>example-spring-boot-management</module>
-	</modules>
+        <module>example-spring-boot-redis</module>
+    </modules>
     <name>example-spring-boot</name>
 
 
