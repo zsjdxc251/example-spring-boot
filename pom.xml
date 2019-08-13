@@ -24,6 +24,7 @@
 		<module>example-spring-boot-shell</module>
 		<module>example-spring-boot-management</module>
         <module>example-spring-boot-redis</module>
+        <module>example-spring-boot-h2</module>
     </modules>
     <name>example-spring-boot</name>
 
