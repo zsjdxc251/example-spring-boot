@@ -1,6 +1,10 @@
 package com.lesson.boot.h2;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lesson.boot.h2.mapper.StudentMapper;
 import com.lesson.boot.h2.model.entity.Student;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +28,6 @@ import java.util.List;
  * @version created on 2019/8/13.
  */
 @Slf4j
-@MapperScan("com.lesson.boot.h2.mapper")
 @SpringBootApplication
 public class H2Bootstrap{
 
@@ -38,10 +41,11 @@ public class H2Bootstrap{
 
     @EventListener(ContextRefreshedEvent.class)
     public void onEvent(){
+        LambdaQueryWrapper<Student> wrapper =  new QueryWrapper<Student>().lambda();
+        IPage<Student> page =  new Page<>(2,20);
+        page =  studentMapper.selectPage(page,wrapper);
 
-       List<Student> students =  studentMapper.selectList(null);
-
-       System.out.println(JSON.toJSONString(students));
+       System.out.println(JSON.toJSONString(page.getRecords()));
 
 
     }
