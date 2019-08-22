@@ -25,6 +25,7 @@
 		<module>example-spring-boot-management</module>
         <module>example-spring-boot-redis</module>
         <module>example-spring-boot-h2</module>
+        <module>example-spring-boot-cache</module>
     </modules>
     <name>example-spring-boot</name>
 
@@ -32,7 +33,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <spring.boot.version>2.0.7.RELEASE</spring.boot.version>
+        <spring.boot.version>2.0.9.RELEASE</spring.boot.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
