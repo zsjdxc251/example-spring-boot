@@ -1,19 +1,16 @@
 package com.lesson.spring.boot.redis.distlock;
 
-import io.lettuce.core.RedisFuture;
-import io.lettuce.core.SetArgs;
-import io.lettuce.core.api.async.RedisAsyncCommands;
-import org.springframework.context.annotation.Bean;
-import org.springframework.dao.DataAccessException;
+import com.google.common.collect.ImmutableList;
+import org.springframework.boot.origin.SystemEnvironmentOrigin;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisStringCommands;
-import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
+import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.data.redis.core.types.Expiration;
 
+import java.util.Objects;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -24,55 +21,74 @@ import java.util.concurrent.locks.Lock;
  */
 public class DistributedLock implements Lock {
 
+    private static final RedisScript<Long> UNLOCK_SCRIPT = new DefaultRedisScript<>(LuaScriptRepository.UNLOCK_LUA_SCRIPT, Long.class);
+
+
     private String key;
 
     private StringRedisTemplate template;
 
-    public DistributedLock(String key,StringRedisTemplate template){
+    private String value;
+
+    private volatile boolean interrupted = false;
+
+
+    public DistributedLock(String key, StringRedisTemplate template) {
         this.key = key;
         this.template = template;
+        this.value = UUID.randomUUID().toString();
     }
 
     @Override
     public void lock() {
 
-
-        Boolean result = template.execute((RedisCallback<Boolean>) connection -> {
-            String uuid = UUID.randomUUID().toString();
-
-            return connection.set(key.getBytes(),uuid.getBytes(),Expiration.from(100000,TimeUnit.MILLISECONDS), RedisStringCommands.SetOption.SET_IF_ABSENT);
-
-
-
-        });
-
-        System.out.println(result);
+        while (!interrupted && !tryLock()) {
+            try {
+                TimeUnit.MICROSECONDS.sleep(100);
+            } catch (InterruptedException e) {
+            }
+        }
 
     }
 
     @Override
     public void lockInterruptibly() throws InterruptedException {
-
+        interrupted = Boolean.TRUE;
     }
 
     @Override
     public boolean tryLock() {
-        return false;
+
+        Boolean result = template.execute(this::setNXPX);
+        return result == null ? Boolean.FALSE : result;
     }
 
     @Override
     public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
+
         return false;
     }
 
     @Override
     public void unlock() {
 
+
+        Long aLong = template.execute(UNLOCK_SCRIPT, ImmutableList.of(key), value);
+        if (!Objects.equals(aLong, 1L)){
+            throw new IllegalArgumentException();
+        }
+        System.out.println(aLong);
     }
 
     @Override
     public Condition newCondition() {
         return null;
+    }
+
+
+    private Boolean setNXPX(RedisConnection connection) {
+
+        return connection.set(key.getBytes(), value.getBytes(), Expiration.from(100000, TimeUnit.MILLISECONDS), RedisStringCommands.SetOption.SET_IF_ABSENT);
     }
 }
 
