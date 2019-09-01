@@ -45,7 +45,7 @@ public class DistributedLock implements Lock {
         while (!interrupted && !tryLock()) {
             try {
                 TimeUnit.MICROSECONDS.sleep(100);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException ignored) {
             }
         }
 

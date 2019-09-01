@@ -26,6 +26,7 @@
         <module>example-spring-boot-mvc-rest</module>
         <module>example-spring-boot-mvc-servlet</module>
 		<module>example-spring-boot-mvc-encrypt</module>
-	</modules>
+        <module>example-spring-boot-mvc-i18n</module>
+    </modules>
 
 </project>
