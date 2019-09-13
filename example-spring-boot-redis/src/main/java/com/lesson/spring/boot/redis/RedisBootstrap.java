@@ -1,6 +1,7 @@
 package com.lesson.spring.boot.redis;
 
 import com.lesson.spring.boot.redis.distlock.DistributedLock;
+import com.lesson.spring.boot.redis.distlock.RedisLockTemplate;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,6 +11,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
 
 
 /**
@@ -28,11 +30,13 @@ public class RedisBootstrap {
 
 
     @Bean
-    public ApplicationRunner applicationRunner(StringRedisTemplate redisTemplate){
+    public ApplicationRunner applicationRunner(RedisLockTemplate redisLockTemplate){
         return args -> {
 
+
+
             System.out.println("开始执行..");
-            DistributedLock lock =  new DistributedLock("123",redisTemplate);
+            Lock lock = redisLockTemplate.getLock("123");
 
             lock.lock();
             TimeUnit.SECONDS.sleep(3);
