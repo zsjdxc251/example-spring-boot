@@ -1,0 +1,9 @@
+spring:
+  cache:
+    type: redis
+    redis:
+      key-prefix: 'test:'
+  redis:
+    host: 10.0.20.4
+    port: 6379
+    password: 123456

@@ -21,6 +21,11 @@ import java.lang.management.ManagementFactory;
 import java.util.Locale;
 
 /**
+ *    {@code org.springframework.cloud.bootstrap.config.PropertySourceLocator}
+ *       {@code org.springframework.cloud.consul.config.ConsulPropertySourceLocator}
+ *       {@code com.alibaba.cloud.nacos.client.NacosPropertySourceLocator}
+ *       {@code org.springframework.cloud.config.client.ConfigServicePropertySourceLocator}
+ *
  *   配置中心加载
  *  {@code org.springframework.cloud.config.client.ConfigServicePropertySourceLocator}  {@code org.springframework.cloud.config.client.DiscoveryClientConfigServiceBootstrapConfiguration}
  *
