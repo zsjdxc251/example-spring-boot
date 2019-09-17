@@ -13,9 +13,16 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.env.AbstractEnvironment;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
+import org.springframework.core.env.PropertyResolver;
+import org.springframework.core.env.PropertySource;
+import org.springframework.core.env.PropertySources;
+import org.springframework.core.env.StandardEnvironment;
 
 import java.lang.management.ManagementFactory;
 import java.util.Locale;
@@ -55,6 +62,41 @@ import java.util.Locale;
  *    获取系统 部分信息
  *      > Starting PropertiesBootstrap on DESKTOP-6LN217U with PID 776 ...
  *    {@code StartupInfoLogger#getStartupMessage()}
+ *
+ *
+ *
+ *     {@link Environment} 抽象
+ *
+ *       只读 {@link Environment}
+ *           配置 {@link PropertyResolver}
+ *               Profile
+ *               {@link Environment#getActiveProfiles()}
+ *               {@link Environment#getDefaultProfiles()}
+ *       写入 {@link AbstractEnvironment}
+ *               {@link AbstractEnvironment#setDefaultProfiles(java.lang.String...)}
+ *               {@link AbstractEnvironment#setActiveProfiles(java.lang.String...)}
+ *
+ *
+ *     配置源
+ *        API
+ *            单配置源 {@link PropertySource}
+ *            多配置源 {@link PropertySources}
+ *        注解
+ *            单配置源 {@link org.springframework.context.annotation.PropertySource}
+ *            多配置源 {@link org.springframework.context.annotation.PropertySources}
+ *
+ *
+ *     类型转换
+ *        API
+ *           {@link ConversionService}
+ *           {@link Converter}
+ *
+ *     系统配置
+ *         {@link StandardEnvironment}
+ *
+ *
+ *
+ *
  *
  * @see ConfigFileApplicationListener   可以扩展 自定义application.properties
  * @see EnvironmentPostProcessor
