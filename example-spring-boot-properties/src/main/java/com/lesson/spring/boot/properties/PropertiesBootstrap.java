@@ -8,6 +8,7 @@ import org.springframework.boot.context.config.ConfigFileApplicationListener;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.boot.env.YamlPropertySourceLoader;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.EnvironmentAware;
@@ -95,7 +96,8 @@ import java.util.Locale;
  *         {@link StandardEnvironment}
  *
  *
- *
+ *   {@link LocalServerPort}
+ *   {@link org.springframework.boot.system.ApplicationPid}
  *
  *
  * @see ConfigFileApplicationListener   可以扩展 自定义application.properties
