@@ -119,7 +119,7 @@ public class PropertiesBootstrap implements EnvironmentAware {
         String name = ManagementFactory.getRuntimeMXBean().getName();
 
 
-        SpringApplication.run(PropertiesBootstrap.class,args);
+        ConfigurableApplicationContext applicationContext =  SpringApplication.run(PropertiesBootstrap.class,args);
 
 
 //        Locale.setDefault(Locale.US);
