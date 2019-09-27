@@ -30,11 +30,16 @@ public class DistributedLock implements Lock {
 
     private String value;
 
+    private final long expire;
+
+    private final TimeUnit unit;
+
     private volatile boolean interrupted = false;
 
 
-    public DistributedLock(String key, StringRedisTemplate template) {
-        this.key = key;
+    public DistributedLock(String key, long expire, TimeUnit unit,StringRedisTemplate template) {
+        this.key = key;this.expire = expire;
+        this.unit = unit;
         this.template = template;
         this.value = UUID.randomUUID().toString();
     }
@@ -65,8 +70,14 @@ public class DistributedLock implements Lock {
 
     @Override
     public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
-
-        return false;
+        long currentTime = System.currentTimeMillis();
+        long waitTime = unit.toMillis(time);
+        while (!tryLock()) {
+            if (System.currentTimeMillis() > (currentTime + waitTime)) {
+                return Boolean.FALSE;
+            }
+        }
+        return Boolean.TRUE;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.lesson.spring.boot.redis.distlock;
 
 import org.springframework.data.redis.core.StringRedisTemplate;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 
 /**
@@ -15,8 +16,9 @@ public class RedisLockTemplate {
     public RedisLockTemplate(StringRedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
-    public Lock getLock(String name) {
-        return new DistributedLock(name,redisTemplate);
+    public Lock getRedisLock(String name,long expire, TimeUnit unit) {
+
+        return new DistributedLock(name,expire,unit,redisTemplate);
     }
 
 
