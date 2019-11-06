@@ -78,38 +78,38 @@
 					<mainClass>com.lesson.boot.docs.jooq.DocsJooqBootstrap</mainClass>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.jooq</groupId>
-				<artifactId>jooq-codegen-maven</artifactId>
-				<version>${jooq.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-					</execution>
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>mysql</groupId>
-						<artifactId>mysql-connector-java</artifactId>
-						<version>${mysql.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.jooq</groupId>
-						<artifactId>jooq</artifactId>
-						<version>3.11.11</version>
-					</dependency>
-					<!--<dependency>-->
-						<!--<groupId>org.jooq</groupId>-->
-						<!--<artifactId>jooq-codegen-maven</artifactId>-->
-						<!--<version>3.11.11</version>-->
-					<!--</dependency>-->
-				</dependencies>
-				<configuration>
-					<configurationFile>src/main/resources/JooqConfig.xml</configurationFile>
-				</configuration>
-			</plugin>
+<!--			<plugin>-->
+<!--				<groupId>org.jooq</groupId>-->
+<!--				<artifactId>jooq-codegen-maven</artifactId>-->
+<!--				<version>${jooq.version}</version>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<goals>-->
+<!--							<goal>generate</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--				<dependencies>-->
+<!--					<dependency>-->
+<!--						<groupId>mysql</groupId>-->
+<!--						<artifactId>mysql-connector-java</artifactId>-->
+<!--						<version>${mysql.version}</version>-->
+<!--					</dependency>-->
+<!--					<dependency>-->
+<!--						<groupId>org.jooq</groupId>-->
+<!--						<artifactId>jooq</artifactId>-->
+<!--						<version>3.11.11</version>-->
+<!--					</dependency>-->
+<!--					&lt;!&ndash;<dependency>&ndash;&gt;-->
+<!--						&lt;!&ndash;<groupId>org.jooq</groupId>&ndash;&gt;-->
+<!--						&lt;!&ndash;<artifactId>jooq-codegen-maven</artifactId>&ndash;&gt;-->
+<!--						&lt;!&ndash;<version>3.11.11</version>&ndash;&gt;-->
+<!--					&lt;!&ndash;</dependency>&ndash;&gt;-->
+<!--				</dependencies>-->
+<!--				<configuration>-->
+<!--					<configurationFile>src/main/resources/JooqConfig.xml</configurationFile>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
 		</plugins>
 	</build>
 </project>

@@ -36,7 +36,7 @@ public class RedisBootstrap {
 
 
             System.out.println("开始执行..");
-            Lock lock = redisLockTemplate.getLock("123");
+            Lock lock = redisLockTemplate.getRedisLock("123",3,TimeUnit.SECONDS);
 
             lock.lock();
             TimeUnit.SECONDS.sleep(3);
