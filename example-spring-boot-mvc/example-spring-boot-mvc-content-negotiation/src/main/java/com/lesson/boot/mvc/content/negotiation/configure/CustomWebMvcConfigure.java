@@ -33,6 +33,6 @@ public class CustomWebMvcConfigure implements WebMvcConfigurer {
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 
 
-        converters.add(new MappingJackson2XmlHttpMessageConverter());
+       // converters.add(new MappingJackson2XmlHttpMessageConverter());
     }
 }

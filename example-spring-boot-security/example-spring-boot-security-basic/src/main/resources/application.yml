@@ -1,5 +1,7 @@
 
-
+logging:
+  level:
+    root : debug
 spring:
   application:
     name: spring-boot-security-basic

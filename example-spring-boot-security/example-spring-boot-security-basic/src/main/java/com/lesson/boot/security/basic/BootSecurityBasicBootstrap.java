@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
  * @version created on 2018/12/30.
  */
 @SpringBootApplication
-@EnableGlobalMethodSecurity
 public class BootSecurityBasicBootstrap {
 
     public static void main(String[] args){
