@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: example-spring-boot-jdbc
+
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://xxxxx:3306/xxxx?autoReconnect=true&rewriteBatchedStatements=true&userUnicode=true&characterEncoding=utf8&useAffectedRows=true&useSSL=false
+    username: xxxx
+    password: 123456
+
+
+  redis:
+    host: xxxxx
+    port: 6379
+    password: 123456
+
+mybatis-plus:
+  globalConfig:
+    banner: false
+    dbConfig:
+      columnFormat: '`%s`'
+      tablePrefix: t_
+
+logging:
+  level:
+    root : INFO
+    'com.lesson.boot.jdbc.mapper' : INFO
+
+
+

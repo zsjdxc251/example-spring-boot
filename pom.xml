@@ -27,6 +27,7 @@
         <module>example-spring-boot-h2</module>
         <module>example-spring-boot-cache</module>
 		<module>example-spring-boot-transaction</module>
+		<module>example-spring-boot-jdbc</module>
 	</modules>
     <name>example-spring-boot</name>
 
