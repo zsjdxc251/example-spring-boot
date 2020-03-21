@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+
+
+	<Appenders>
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<JsonLayout complete="false" compact="true" eventEol="true" stacktraceAsString="true" locationInfo="true">
+				<KeyValuePair key="traceId" value="$${ctx:traceId}"/>
+			</JsonLayout>
+
+		</Console>
+
+
+	</Appenders>
+
+	<Loggers>
+		<Root level="INFO">
+			<AppenderRef ref="STDOUT" />
+		</Root>
+
+	</Loggers>
+</Configuration>
