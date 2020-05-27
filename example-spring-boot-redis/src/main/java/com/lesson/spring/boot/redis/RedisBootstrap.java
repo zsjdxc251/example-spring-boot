@@ -12,6 +12,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
+import java.util.stream.IntStream;
 
 
 /**
@@ -33,18 +34,51 @@ public class RedisBootstrap {
     public ApplicationRunner applicationRunner(RedisLockTemplate redisLockTemplate){
         return args -> {
 
+            IntStream.range(0,10).forEach(i->{
 
+                new Thread(()->{
 
-            System.out.println("开始执行..");
-            Lock lock = redisLockTemplate.getRedisLock("123",3,TimeUnit.SECONDS);
+                    System.out.println("开始执行..");
+                    Lock lock = redisLockTemplate.getRedisLock("123",10,TimeUnit.SECONDS);
 
-            lock.lock();
-            TimeUnit.SECONDS.sleep(3);
-            System.out.println("解锁..");
-            lock.unlock();
+                    lock.lock();
 
-            System.out.println("执行完了..");
+                    tryLock(redisLockTemplate);
+                    try {
+                        TimeUnit.SECONDS.sleep(3);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("解锁..");
+                    lock.unlock();
+
+                    System.out.println("执行完了..");
+
+                }).start();
+            });
 
         };
+    }
+
+    public void tryLock(RedisLockTemplate redisLockTemplate){
+        Lock lock = redisLockTemplate.getRedisLock("123",10,TimeUnit.SECONDS);
+
+        lock.lock();
+
+        tryLock1(redisLockTemplate);
+
+        lock.unlock();
+
+    }
+
+    public void tryLock1(RedisLockTemplate redisLockTemplate){
+        Lock lock = redisLockTemplate.getRedisLock("123",10,TimeUnit.SECONDS);
+
+        lock.lock();
+
+
+
+        lock.unlock();
+
     }
 }
