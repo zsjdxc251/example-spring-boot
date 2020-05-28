@@ -1,5 +1,6 @@
 package com.lesson.boot.jdbc;
 
+import com.lesson.boot.jdbc.service.OrderService;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,40 +21,10 @@ public class JdbcBootstrap {
 	}
 
 	@Bean
-	public ApplicationRunner applicationRunner1(BalanceInfoService balanceInfoService) {
+	public ApplicationRunner applicationRunner(OrderService orderService) {
 		return arguments -> {
 
-			CountDownLatch countDownLatch = new CountDownLatch(1);
-			IntStream.range(0,10).forEach(i->{
-				new Thread(()->{
-					try {
-						countDownLatch.await();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					BigDecimal bigDecimal = BigDecimal.valueOf(200);
-					if (i%2== 0){
-						bigDecimal = bigDecimal.negate();
-					}
-					balanceInfoService.handleFault(465914L, -1L, bigDecimal, "test1");
-				}).start();
-			});
-
-			IntStream.range(0,10).forEach(i->{
-				new Thread(()->{
-					try {
-						countDownLatch.await();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					BigDecimal bigDecimal = BigDecimal.valueOf(200).negate();
-					if (i%2 == 0){
-						bigDecimal = bigDecimal.negate();
-					}
-					balanceInfoService.handleFault(465914L, -1L, bigDecimal, "test2");
-				}).start();
-			});
-			countDownLatch.countDown();
+			System.out.println(orderService.saveRetId("首次"));;
 		};
 	}
 
