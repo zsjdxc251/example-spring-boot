@@ -20,9 +20,11 @@ public class RedisLockTemplate {
     public RedisLockTemplate(StringRedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
+
+
     public Lock getRedisLock(String name,long expire, TimeUnit unit) {
 
-        return new DistributedLock(name,expire,unit,applicationName,redisTemplate);
+        return new DistributedLock(name,expire,unit,redisTemplate);
     }
 
 

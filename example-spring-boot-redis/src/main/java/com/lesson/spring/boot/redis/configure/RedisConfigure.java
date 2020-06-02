@@ -3,6 +3,7 @@ package com.lesson.spring.boot.redis.configure;
 import com.lesson.spring.boot.redis.distlock.RedisLockTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 /**
@@ -10,6 +11,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
  * @version created on 2019/9/7.
  */
 @Configuration
+//@EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
 public class RedisConfigure {
 
     @Bean
