@@ -1,5 +1,6 @@
 package com.lesson.boot.jdbc;
 
+import com.lesson.boot.jdbc.service.MemberService;
 import com.lesson.boot.jdbc.service.OrderService;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,10 +22,10 @@ public class JdbcBootstrap {
 	}
 
 	@Bean
-	public ApplicationRunner applicationRunner(OrderService orderService) {
+	public ApplicationRunner applicationRunner(MemberService orderService) {
 		return arguments -> {
 
-			System.out.println(orderService.saveRetId("首次"));;
+			orderService.add();
 		};
 	}
 
