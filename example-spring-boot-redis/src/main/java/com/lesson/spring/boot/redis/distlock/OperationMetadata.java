@@ -15,7 +15,7 @@ import java.lang.reflect.Proxy;
  * @version created on 2019/9/16.
  */
 @Data
-class OperationMetadata {
+public class OperationMetadata {
 	private final Method method;
 
 	private final Class<?> targetClass;
@@ -30,18 +30,19 @@ class OperationMetadata {
 
 	private final Object target;
 
-	private final String keyExpression;
+	private final String expression;
 
-	OperationMetadata(ProceedingJoinPoint point,MutexLock mutexLock) {
+	public OperationMetadata(ProceedingJoinPoint point, String expression) {
 		methodSignature = MethodSignature.class.cast(point.getSignature());
 		Method method = methodSignature.getMethod();
 		this.method = BridgeMethodResolver.findBridgedMethod(method);
 		this.targetClass = point.getTarget().getClass();
 		this.targetMethod = (!Proxy.isProxyClass(targetClass) ?
 				AopUtils.getMostSpecificMethod(method, targetClass) : this.method);
-		this.methodKey = new AnnotatedElementKey(this.targetMethod, targetClass);;
+		this.methodKey = new AnnotatedElementKey(this.targetMethod, targetClass);
+
 		this.args = point.getArgs();
-		this.target =  point.getTarget();
-		this.keyExpression = mutexLock.key();
+		this.target = point.getTarget();
+		this.expression = expression;
 	}
 }

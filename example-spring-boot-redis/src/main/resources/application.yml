@@ -1,5 +1,7 @@
 spring:
+  application:
+    name: redis-lock
   redis:
-    host: 121.196.232.248
-    port: 7777
-    password: 12345QWERTYUIO
+    host: xxxx
+    port: 6379
+    password: xxxx

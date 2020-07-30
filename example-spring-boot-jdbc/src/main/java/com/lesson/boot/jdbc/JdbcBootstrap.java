@@ -3,6 +3,7 @@ package com.lesson.boot.jdbc;
 import com.baomidou.mybatisplus.core.MybatisMapperAnnotationBuilder;
 import com.baomidou.mybatisplus.core.injector.AbstractSqlInjector;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
+import com.lesson.boot.jdbc.service.MemberService;
 import com.lesson.boot.jdbc.service.OrderService;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,7 +30,6 @@ public class JdbcBootstrap {
 	public static void main(String[] args) {
 		SpringApplication.run(JdbcBootstrap.class, args);
 	}
-
 //	@Bean
 //	public ApplicationRunner applicationRunner(OrderService orderService) {
 //		return arguments -> {
@@ -37,5 +37,6 @@ public class JdbcBootstrap {
 //			System.out.println(orderService.saveRetId("首次"));;
 //		};
 //	}
+
 
 }

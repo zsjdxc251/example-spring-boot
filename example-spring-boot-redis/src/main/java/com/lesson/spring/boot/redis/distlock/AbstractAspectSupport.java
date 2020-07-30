@@ -1,5 +1,6 @@
 package com.lesson.spring.boot.redis.distlock;
 
+import org.springframework.cache.interceptor.CacheAspectSupport;
 import org.springframework.context.expression.AnnotatedElementKey;
 import org.springframework.context.expression.MethodBasedEvaluationContext;
 import org.springframework.core.DefaultParameterNameDiscoverer;
@@ -16,24 +17,26 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * {@link CacheAspectSupport}
  * @author zhengshijun
  * @version created on 2019/9/16.
  */
-abstract class AbstractLockAspectSupport {
+public abstract class AbstractAspectSupport {
 
 	private final ExpressionParser parser = new SpelExpressionParser();
 	private final ParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
 	private final Map<ExpressionKey, Expression> keyCache = new ConcurrentHashMap<>(64);
-
 	/**
-	 *  生成 动态的KEY
+	 * 生成 动态的数据
+	 *
 	 * @param metadata 数据
 	 * @return 返回KEY
 	 */
-	String generateKey(OperationMetadata metadata) {
+	@SuppressWarnings("unchecked")
+	protected <T> T format(OperationMetadata metadata) {
 		EvaluationContext evaluationContext = createEvaluationContext(metadata.getMethod(), metadata.getArgs(), metadata.getTarget(), metadata.getTargetClass());
-		Object result = getExpression(metadata.getKeyExpression(), metadata.getMethodKey()).getValue(evaluationContext);
-		return String.valueOf(result);
+		Object result = getExpression(metadata.getExpression(), metadata.getMethodKey()).getValue(evaluationContext);
+		return (T) result;
 	}
 
 	private Expression getExpression(String expression, AnnotatedElementKey elementKey) {
@@ -49,7 +52,7 @@ abstract class AbstractLockAspectSupport {
 
 	private EvaluationContext createEvaluationContext(Method method, Object[] arguments, Object target, Class<?> targetClass) {
 
-		LockExpressionRootObject rootObject = new LockExpressionRootObject(method, arguments, target, targetClass);
+		GeneralExpressionRootObject rootObject = new GeneralExpressionRootObject(method, arguments, target, targetClass);
 		return new MethodBasedEvaluationContext(rootObject, method, arguments, parameterNameDiscoverer);
 
 	}

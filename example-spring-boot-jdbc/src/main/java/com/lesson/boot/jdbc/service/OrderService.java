@@ -5,6 +5,7 @@ import com.lesson.boot.jdbc.entity.Order;
 import com.lesson.boot.jdbc.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

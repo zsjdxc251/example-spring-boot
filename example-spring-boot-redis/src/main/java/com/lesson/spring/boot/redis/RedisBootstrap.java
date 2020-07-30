@@ -2,6 +2,7 @@ package com.lesson.spring.boot.redis;
 
 import com.lesson.spring.boot.redis.distlock.DistributedLock;
 import com.lesson.spring.boot.redis.distlock.RedisLockTemplate;
+import com.lesson.spring.boot.redis.service.MemberService;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,6 +32,17 @@ public class RedisBootstrap {
 
 
     @Bean
+    public ApplicationRunner runner1(MemberService memberService){
+
+        return args -> {
+           Object id =  memberService.getById(33L);
+
+           System.out.println(id);
+
+        };
+    }
+
+
     public ApplicationRunner applicationRunner(RedisLockTemplate redisLockTemplate){
         return args -> {
 
