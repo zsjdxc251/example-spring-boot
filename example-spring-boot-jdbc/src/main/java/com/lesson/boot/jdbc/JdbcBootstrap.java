@@ -1,5 +1,8 @@
 package com.lesson.boot.jdbc;
 
+import com.baomidou.mybatisplus.core.MybatisMapperAnnotationBuilder;
+import com.baomidou.mybatisplus.core.injector.AbstractSqlInjector;
+import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
 import com.lesson.boot.jdbc.service.OrderService;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +14,13 @@ import java.util.concurrent.CountDownLatch;
 import java.util.stream.IntStream;
 
 /**
+ *  {@link MybatisMapperAnnotationBuilder#parse()}
+ *
+ *  {@link AbstractSqlInjector#inspectInject(org.apache.ibatis.builder.MapperBuilderAssistant, java.lang.Class)}
+ *
+ *  {@link AbstractSqlInjector#getMethodList(java.lang.Class)}
+ *
+ * {@link DefaultSqlInjector}
  * @author zhengshijun
  * @version created on 2020/2/14.
  */
@@ -20,12 +30,12 @@ public class JdbcBootstrap {
 		SpringApplication.run(JdbcBootstrap.class, args);
 	}
 
-	@Bean
-	public ApplicationRunner applicationRunner(OrderService orderService) {
-		return arguments -> {
-
-			System.out.println(orderService.saveRetId("首次"));;
-		};
-	}
+//	@Bean
+//	public ApplicationRunner applicationRunner(OrderService orderService) {
+//		return arguments -> {
+//
+//			System.out.println(orderService.saveRetId("首次"));;
+//		};
+//	}
 
 }
