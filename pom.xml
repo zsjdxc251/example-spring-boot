@@ -29,6 +29,7 @@
 		<module>example-spring-boot-transaction</module>
 		<module>example-spring-boot-features</module>
 		<module>example-spring-boot-jdbc</module>
+		<module>example-spring-boot-sharding</module>
 	</modules>
     <name>example-spring-boot</name>
 
