@@ -30,13 +30,13 @@ public class JdbcBootstrap {
 	public static void main(String[] args) {
 		SpringApplication.run(JdbcBootstrap.class, args);
 	}
-//	@Bean
-//	public ApplicationRunner applicationRunner(OrderService orderService) {
-//		return arguments -> {
-//
-//			System.out.println(orderService.saveRetId("首次"));;
-//		};
-//	}
+	@Bean
+	public ApplicationRunner applicationRunner(OrderService orderService) {
+		return arguments -> {
+
+			orderService.exist();
+		};
+	}
 
 
 }

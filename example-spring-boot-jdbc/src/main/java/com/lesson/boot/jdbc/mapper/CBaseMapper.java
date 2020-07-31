@@ -11,9 +11,6 @@ import org.apache.ibatis.annotations.Param;
 public interface CBaseMapper<T> extends BaseMapper<T> {
 
 
-    default boolean exist(@Param("ew") Wrapper<T> wrapper) {
 
-
-        return false;
-    }
+    Boolean exist(@Param("ew") Wrapper<T> wrapper);
 }

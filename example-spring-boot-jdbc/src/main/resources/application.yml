@@ -4,9 +4,9 @@ spring:
 
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://xxxx:3389/estate?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
-    username: xx
-    password: xx
+    url: jdbc:mysql://47.114.189.36:3389/estate?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+    username: dc_rw
+    password: Dcjl_db_20200425
 
   redis:
     host: xxxxx
@@ -23,7 +23,7 @@ mybatis-plus:
 logging:
   level:
     root : INFO
-    'com.lesson.boot.jdbc.mapper' : INFO
+    'com.lesson.boot.jdbc.mapper' : DEBUG
 
 
 
