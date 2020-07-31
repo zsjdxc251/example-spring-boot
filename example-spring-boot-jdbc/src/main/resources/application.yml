@@ -5,9 +5,8 @@ spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://xxxx:3389/estate?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
-    username: xxx
-    password: xxx
-
+    username: xx
+    password: xx
 
   redis:
     host: xxxxx
