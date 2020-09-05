@@ -1,5 +1,6 @@
 package com.lesson.spring.boot.redis;
 
+import com.alibaba.fastjson.JSON;
 import com.lesson.spring.boot.redis.distlock.DistributedLock;
 import com.lesson.spring.boot.redis.distlock.RedisLockTemplate;
 import com.lesson.spring.boot.redis.service.MemberService;
@@ -8,9 +9,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.origin.SystemEnvironmentOrigin;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.core.BoundSetOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.stream.IntStream;
@@ -32,65 +35,27 @@ public class RedisBootstrap {
 
 
     @Bean
-    public ApplicationRunner runner1(MemberService memberService){
+    public ApplicationRunner runner1(StringRedisTemplate redisTemplate){
+
 
         return args -> {
-           Object id =  memberService.getById(33L);
 
-           System.out.println(id);
+
+            BoundSetOperations<String,String> operations =  redisTemplate.boundSetOps("test:123");
+//            operations.add("123d");
+//            operations.add("123b");
+//            operations.add("123c");
+
+            System.out.println(operations.add("123i"));
+            System.out.println(operations.add("123b"));
+//            System.out.println(operations.isMember("123d"));
+//            System.out.println(operations.isMember("9999"));
+            Set<String> stringSet = operations.members();
+            System.out.println(JSON.toJSONString(stringSet));
+
+
 
         };
     }
 
-
-    public ApplicationRunner applicationRunner(RedisLockTemplate redisLockTemplate){
-        return args -> {
-
-            IntStream.range(0,10).forEach(i->{
-
-                new Thread(()->{
-
-                    System.out.println("开始执行..");
-                    Lock lock = redisLockTemplate.getRedisLock("123",10,TimeUnit.SECONDS);
-
-                    lock.lock();
-
-                    tryLock(redisLockTemplate);
-                    try {
-                        TimeUnit.SECONDS.sleep(3);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println("解锁..");
-                    lock.unlock();
-
-                    System.out.println("执行完了..");
-
-                }).start();
-            });
-
-        };
-    }
-
-    public void tryLock(RedisLockTemplate redisLockTemplate){
-        Lock lock = redisLockTemplate.getRedisLock("123",10,TimeUnit.SECONDS);
-
-        lock.lock();
-
-        tryLock1(redisLockTemplate);
-
-        lock.unlock();
-
-    }
-
-    public void tryLock1(RedisLockTemplate redisLockTemplate){
-        Lock lock = redisLockTemplate.getRedisLock("123",10,TimeUnit.SECONDS);
-
-        lock.lock();
-
-
-
-        lock.unlock();
-
-    }
 }
