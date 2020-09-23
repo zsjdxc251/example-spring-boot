@@ -3,9 +3,16 @@ package com.lesson.boot.security.basic;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.HttpSecurityBuilder;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 /**
+ *  filters
+ *   {@link HttpSecurityBuilder#addFilter(javax.servlet.Filter)}
+ *{@link UserDetailsService}
+ *   {@link InMemoryUserDetailsManager}
  * @author zhengshijun
  * @version created on 2018/12/30.
  */

@@ -29,7 +29,7 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();
+		http.csrf().disable().cors().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();
 		http.authorizeRequests()
 				.antMatchers("/favicon.ico").anonymous()
 				.anyRequest().authenticated();
