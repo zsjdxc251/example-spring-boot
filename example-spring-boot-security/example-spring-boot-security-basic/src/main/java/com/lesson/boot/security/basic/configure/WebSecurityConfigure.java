@@ -1,13 +1,24 @@
 package com.lesson.boot.security.basic.configure;
 
-import com.lesson.boot.security.basic.SampleAuthenticationManager;
+import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.expression.EvaluationContext;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
+import org.springframework.security.access.expression.SecurityExpressionHandler;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.FilterInvocation;
+import org.springframework.security.web.SecurityFilterChain;
+
+import javax.servlet.Filter;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * {@link HttpSecurity#httpBasic()} 通过用户名:密码 BASE64散列之后 携带到请求头 authorization:Basic cm9vdDoxMjM0NTY=
@@ -21,24 +32,56 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 @Configuration
 public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
 
-	@Override
-	protected AuthenticationManager authenticationManager() throws Exception {
-
-		return new SampleAuthenticationManager();
-	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+
 		http.csrf().disable().cors().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();
+
+		/*http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();
+
 		http.authorizeRequests()
 				.antMatchers("/favicon.ico").anonymous()
-				.anyRequest().authenticated();
+				.anyRequest().authenticated();*/
 
+		//http.csrf().requireCsrfProtectionMatcher(request -> true);
+		http.authorizeRequests().antMatchers("/api/demo").permitAll()
+				.anyRequest().authenticated()
+//				.expressionHandler(new SecurityExpressionHandler<FilterInvocation>() {
+//					@Override
+//					public ExpressionParser getExpressionParser() {
+//						return new SpelExpressionParser();
+//					}
+//
+//					@Override
+//					public EvaluationContext createEvaluationContext(Authentication authentication, FilterInvocation invocation) {
+//						return new StandardEvaluationContext();
+//					}
+//				})
+		;
 
 
 	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().mvcMatchers("/demo").and().addSecurityFilterChainBuilder(()->
+
+				{
+					return  new SecurityFilterChain(){
+						@Override
+						public boolean matches(HttpServletRequest request) {
+							return false;
+						}
+
+						@Override
+						public List<Filter> getFilters() {
+							return null;
+						}
+					};
+				}
+				);
+
+
 	}
 }

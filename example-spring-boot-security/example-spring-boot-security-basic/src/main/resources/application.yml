@@ -1,15 +1,15 @@
 
 logging:
   level:
-    root : debug
+    root : INFO
 spring:
   application:
     name: spring-boot-security-basic
 
 
   security:
-    basic:
-      enabled: true
+#    basic:
+#      enabled: true
     user:
       name: admin
       password: 123456
