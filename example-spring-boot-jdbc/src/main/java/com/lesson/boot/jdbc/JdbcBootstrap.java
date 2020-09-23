@@ -8,7 +8,9 @@ import com.lesson.boot.jdbc.service.OrderService;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.system.ApplicationPid;
 import org.springframework.context.annotation.Bean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.math.BigDecimal;
 import java.util.concurrent.CountDownLatch;
@@ -20,6 +22,9 @@ import java.util.stream.IntStream;
  *  {@link AbstractSqlInjector#inspectInject(org.apache.ibatis.builder.MapperBuilderAssistant, java.lang.Class)}
  *
  *  {@link AbstractSqlInjector#getMethodList(java.lang.Class)}
+ *
+ *  设置事务排序
+ *  {@link EnableTransactionManagement#order()}
  *
  * {@link DefaultSqlInjector}
  * @author zhengshijun
@@ -33,7 +38,8 @@ public class JdbcBootstrap {
 	@Bean
 	public ApplicationRunner applicationRunner(OrderService orderService) {
 		return arguments -> {
-
+			ApplicationPid applicationPid = new ApplicationPid();
+			System.out.println(applicationPid.toString());
 			orderService.exist();
 		};
 	}
