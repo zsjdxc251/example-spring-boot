@@ -17,5 +17,6 @@
     <modules>
         <module>example-spring-boot-security-quickstart</module>
         <module>example-spring-boot-security-basic</module>
+        <module>example-spring-boot-security-flux</module>
     </modules>
 </project>

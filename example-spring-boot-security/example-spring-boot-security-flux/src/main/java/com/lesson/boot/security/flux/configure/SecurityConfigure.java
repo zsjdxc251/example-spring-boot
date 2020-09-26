@@ -60,6 +60,7 @@ public class SecurityConfigure {
 
 			return response.setComplete();
 		});
+
 		return http.build();
 	}
 

@@ -92,44 +92,84 @@
 
 * 每一个Filter 对应一个功能
 
-  * `org.springframework.security.web.csrf.CsrfFilter`
-  * `org.springframework.security.web.header.HeaderWriterFilter`
-  * `org.springframework.security.web.session.SessionManagementFilter`
-  * `org.springframework.web.filter.CorsFilter`
-  * `org.springframework.security.web.access.ExceptionTranslationFilter`
-    * 该接口过滤器用于处理处理异常情况捕捉 401 和 403
-  * `org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter`
-    * 需要认证的过滤器实现继承`org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter`通过该接口方法实现
-    * 认证成功回调`org.springframework.security.web.authentication.session.SessionAuthenticationStrategy` 实现方法
-  * `org.springframework.security.web.access.intercept.FilterSecurityInterceptor`
-    * 实现权限控制核心过滤器 `org.springframework.security.access.intercept.AbstractSecurityInterceptor`
-  * `org.springframework.security.web.authentication.AnonymousAuthenticationFilter`
-    * 用于处理`SecurityContextHolder#getContext()` 为空是设置为匿名`AnonymousAuthenticationToken`
+  1. `org.springframework.security.web.csrf.CsrfFilter`
+
+  2. `org.springframework.security.web.header.HeaderWriterFilter`
+
+  3. `org.springframework.security.web.session.SessionManagementFilter`
+
+  4. `org.springframework.web.filter.CorsFilter`
+
+  5. `org.springframework.security.web.access.ExceptionTranslationFilter`
+     * 该接口过滤器用于处理处理异常情况捕捉 401 和 403
+
+  6. `org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter`
+
+     * 需要认证的过滤器实现继承 `AbstractAuthenticationProcessingFilter`通过该接口方法实现
+
+     * `AuthenticationFailureHandler`
+
+     * `AuthenticationSuccessHandler`
+     * `SessionAuthenticationStrategy ` 认证成功回调
+
+  7. `org.springframework.security.web.access.intercept.FilterSecurityInterceptor`
+     * 实现权限控制核心过滤器 `org.springframework.security.access.intercept.AbstractSecurityInterceptor`
+
+  8. `org.springframework.security.web.authentication.AnonymousAuthenticationFilter`
+     * 用于处理`SecurityContextHolder#getContext()` 为空是设置为匿名`AnonymousAuthenticationToken`
+
+  9. `org.springframework.security.web.authentication.www.BasicAuthenticationFilter`
+
+  10. `org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter`
+  11. `org.springframework.security.web.context.SecurityContextPersistenceFilter`
+      * 用于处理 通过 cookie 里面获取到ID 然后转化为获取到`SecurityContext` `Authentication`
 
 * Filter 扩展配置
 
-  * `org.springframework.security.config.annotation.web.configurers.CsrfConfigurer`
+  1. `org.springframework.security.config.annotation.web.configurers.CsrfConfigurer`
+     * 存储
+       * `org.springframework.security.web.csrf.CsrfTokenRepository`
+         * `CookieCsrfTokenRepository`
+         * `HttpSessionCsrfTokenRepository`
+         * `LazyCsrfTokenRepository`
 
-  * `org.springframework.security.config.annotation.web.configurers.HeadersConfigurer`
+  2. `org.springframework.security.config.annotation.web.configurers.HeadersConfigurer`
 
-  * `org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer`
+  3. `org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer`
+     * 存储
+       * `ServerSecurityContextRepository`
+         * `HttpSessionSecurityContextRepository`
+         * `NullSecurityContextRepository`
+       * `org.springframework.security.core.session.SessionRegistry`
+         * `org.springframework.security.core.session.SessionRegistryImpl`
 
-  * `org.springframework.security.config.annotation.web.configurers.CorsConfigurer`
+  4. `org.springframework.security.config.annotation.web.configurers.CorsConfigurer`
 
-  * `org.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurer`
+  5. `org.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurer`
+     * `HttpSecurity#exceptionHandling()`  该返回返回`Configurer`
+     * `ExceptionHandlingConfigurer#accessDeniedHandler` 用于处理 没有权限的情况
+     * `ExceptionHandlingConfigurer#authenticationEntryPoint` 用于处理认证失败的情况
 
-    * `HttpSecurity#exceptionHandling()`  该返回返回`Configurer`
+  6. `org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer`
 
-    * `ExceptionHandlingConfigurer#accessDeniedHandler` 用于处理 没有权限的情况
-    * `ExceptionHandlingConfigurer#authenticationEntryPoint` 用于处理认证失败的情况
+  7. `org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer`
+     * `HttpSecurity#authorizeRequests()`
 
-  * `org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer`
+  8. `org.springframework.security.config.annotation.web.configurers.AnonymousConfigurer`
 
-  * `org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer`
+  9. `org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer`
 
-    * `HttpSecurity#authorizeRequests()`
+  10. `org.springframework.security.config.annotation.web.configurers.RememberMeConfigurer`
 
-  * `org.springframework.security.config.annotation.web.configurers.AnonymousConfigurer`
+      * 存储
+
+        * `org.springframework.security.web.authentication.RememberMeServices`
+
+          * 默认实现`PersistentTokenBasedRememberMeServices`
+
+          * `PersistentTokenRepository`
+
+  11. `org.springframework.security.config.annotation.web.configurers.SecurityContextConfigurer`
 
 * Filter 内置排序
 
@@ -154,21 +194,61 @@
 
 
 
+### Web 抽象Filter
+
+* `org.springframework.web.filter.OncePerRequestFilter`
+* `org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter`
+* `org.springframework.web.filter.GenericFilterBean`
+
+
+
 ### Security Core
 
 * `AuthenticationManager`
+  
   * 默认实现`org.springframework.security.authentication.ProviderManager`
+    * 处理多个`AuthenticationProvider`
+  
 * `AuthenticationProvider`
+
 * `Authentication`
-  * `Authentication#getAuthorities`
+  
+  凭证
+  
+  * `Authentication#getAuthorities` 权限
     * 辅助工具类`AuthorityUtils`
+  * `Authentication#getCredentials` 凭证 通常会设置为 密码
+  * `Authentication#getDetails` 认证详细系信息 `UserDetails`
+  * `Authentication#getPrincipal` 通常为用户名
+  
 * `UserDetailsService`
+  
   * `UserDetails`
     * `UserDetails#getAuthorities`
       * 用于存储用户角色或者其他标识用户权限信息
+  
 * `SecurityContextHolder`
+
+  * 持有当前请求的`SecurityContext`
+
 * `AbstractSecurityInterceptor`
+  
   * `MethodSecurityInterceptor` 
   * `FilterSecurityInterceptor`  Web Servlet 的实现拦截器权限
+  
 * `AccessDecisionManager`
+
 * `SecurityMetadataSource`
+
+  * 实现接口
+    * `FilterInvocationSecurityMetadataSource`  Web Servlet
+    * `MethodSecurityMetadataSource` 编程方式
+
+  * `SecurityConfig#createList` 辅助工具类
+
+* `PasswordEncoder`
+
+  * `BCryptPasswordEncoder`
+
+* `SecurityContext`
+
