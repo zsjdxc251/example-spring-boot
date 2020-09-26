@@ -1,4 +1,25 @@
+## 加密技术
 
+### 加密方式分类
+
+#### 单向加密
+
+* `BASE64 `严格地说，属于编码格式，而非加密算法
+* `MD5`(Message Digest algorithm 5，信息摘要算法)
+* `SHA`(Secure Hash Algorithm，安全散列算法)
+* `HMAC`(Hash Message Authentication Code，散列消息鉴别码)
+* `PBKDF2`
+* `scrypt`
+* `bcrypt`
+
+#### 双向加密
+
+- `DES` (Data Encryption Standard，数据加密算法)
+- `PBE`  (Password-based encryption，基于密码验证)
+- `RSA` (算法的名字以发明者的名字命名：Ron Rivest, AdiShamir 和Leonard Adleman)
+- `DH` (Diffie-Hellman算法，密钥一致协议)
+- `DSA` (Digital Signature Algorithm，数字签名)
+- `ECC` (Elliptic Curves Cryptography，椭圆曲线密码编码学)
 
 
 
@@ -248,7 +269,11 @@
 
 * `PasswordEncoder`
 
-  * `BCryptPasswordEncoder`
+  * `BCryptPasswordEncoder` 推荐使用
 
 * `SecurityContext`
+
+* `AbstractUserDetailsAuthenticationProvider`
+
+  * 用于`UserDetails` 认证
 
