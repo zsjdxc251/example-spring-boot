@@ -1,6 +1,6 @@
 package com.lesson.boot.mvc.error;
 
-import javafx.beans.property.ObjectProperty;
+
 import org.apache.catalina.core.ApplicationFilterFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +21,10 @@ import org.springframework.context.annotation.Bean;
  *  {@link ApplicationFilterFactory#matchDispatcher(org.apache.tomcat.util.descriptor.web.FilterMap, javax.servlet.DispatcherType)}
  *
  *  {@link HttpEncodingAutoConfiguration}
+ *
+ *  {@link ApplicationFilterFactory#createFilterChain(javax.servlet.ServletRequest, org.apache.catalina.Wrapper, javax.servlet.Servlet)}
+ *
+ *  {@link org.apache.catalina.core.ApplicationDispatcher#include(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
  * @author zhengshijun
  * @version created on 2018/11/12.
  */
