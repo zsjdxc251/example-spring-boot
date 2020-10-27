@@ -35,17 +35,18 @@ public class SimpleWebMvcConfigure implements WebMvcConfigurer {
                 .favorPathExtension(true)
                 .defaultContentType(MediaType.APPLICATION_JSON_UTF8);
     }
-    @Bean
-    public Filter filter(){
-        return new Filter() {
-            @Override
-            public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
-                throw new RuntimeException("demo");
-                //System.out.println(servletRequest);
-            }
-        };
-    }
+//    @Bean
+//    public Filter filter(){
+//        return new Filter() {
+//            @Override
+//            public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+//
+//                throw new RuntimeException("demo");
+//                //System.out.println(servletRequest);
+//            }
+//        };
+//    }
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
