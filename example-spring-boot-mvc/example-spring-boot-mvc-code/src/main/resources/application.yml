@@ -1,0 +1,15 @@
+server:
+  port: 9550
+
+
+logging:
+  level:
+    root : INFO
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  server:
+    port: 15208

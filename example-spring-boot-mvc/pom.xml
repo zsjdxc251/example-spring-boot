@@ -27,6 +27,7 @@
         <module>example-spring-boot-mvc-servlet</module>
 		<module>example-spring-boot-mvc-encrypt</module>
         <module>example-spring-boot-mvc-i18n</module>
+        <module>example-spring-boot-mvc-code</module>
     </modules>
 
 </project>
