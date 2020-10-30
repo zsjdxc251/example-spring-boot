@@ -1,6 +1,5 @@
 package com.lesson.boot.mvc.code;
 
-import com.lesson.boot.mvc.code.controller.IndexController;
 import org.springframework.beans.FatalBeanException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -43,7 +42,7 @@ public class SampleCreateWebServerListener implements ApplicationListener<WebSer
 		}
 		ConfigurableWebServerApplicationContext managementContext =
 				this.createManagementContext(event.getApplicationContext(),
-						PropertyPlaceholderAutoConfiguration.class,ServletFactoryCustomizer.class, DispatcherServlet.class,IndexController.class);
+						PropertyPlaceholderAutoConfiguration.class,ServletFactoryCustomizer.class, DispatcherServlet.class);
 		if (isLazyInitialization(applicationContext)) {
 			managementContext.addBeanFactoryPostProcessor(new LazyInitializationBeanFactoryPostProcessor());
 		}
