@@ -14,9 +14,9 @@ import org.springframework.context.annotation.Bean;
 
 /**
  *
- *  {@code StandardHostValve#throwable(org.apache.catalina.connector.Request, org.apache.catalina.connector.Response, java.lang.Throwable)}
+ *  {@link org.apache.catalina.core.StandardHostValve#throwable(org.apache.catalina.connector.Request, org.apache.catalina.connector.Response, java.lang.Throwable)}
  * {@link BasicErrorController}
- * {@code org.apache.catalina.core.ApplicationDispatcher#invoke(javax.servlet.ServletRequest, javax.servlet.ServletResponse, org.apache.catalina.core.ApplicationDispatcher.State)}
+ * {@link org.apache.catalina.core.ApplicationDispatcher#invoke(javax.servlet.ServletRequest, javax.servlet.ServletResponse, org.apache.catalina.core.ApplicationDispatcher.State)}
  *
  *  {@link ApplicationFilterFactory#matchDispatcher(org.apache.tomcat.util.descriptor.web.FilterMap, javax.servlet.DispatcherType)}
  *
@@ -28,6 +28,7 @@ import org.springframework.context.annotation.Bean;
  * @author zhengshijun
  * @version created on 2018/11/12.
  */
+@SuppressWarnings("JavadocReference")
 @SpringBootApplication
 public class BootMvcErrorBootstrap {
 

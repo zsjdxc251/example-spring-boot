@@ -1,10 +1,11 @@
 package com.lesson.boot.mvc.rest;
 
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * {@code StandardHostValve#throwable(org.apache.catalina.connector.Request, org.apache.catalina.connector.Response, java.lang.Throwable)}
+ * {@link org.apache.catalina.core.StandardHostValve#throwable(org.apache.catalina.connector.Request, org.apache.catalina.connector.Response, java.lang.Throwable)}
  *
  *
  *
@@ -21,6 +22,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author zhengshijun
  * @version created on 2018/11/23.
  */
+@SuppressWarnings("JavadocReference")
 @SpringBootApplication
 public class BootMvcRestBootstrap {
 	public static void main(String[] args) {
